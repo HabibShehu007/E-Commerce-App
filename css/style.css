@@ -1,0 +1,426 @@
+/* 🌟 General Page Setup - FIXED */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative; /* Added for absolute positioning context */
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+
+/* 🌟 Splash Screen - FIXED */
+#splash-screen {
+    position: fixed; /* Changed from flex to fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fafafa;
+    z-index: 1000; /* Ensure it stays on top */
+    transition: opacity 0.5s ease;
+}
+
+/* 🌟 Logo Animation - FIXED */
+#logo {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: slideIn 0.6s ease-in-out forwards;
+     width: 80vw; /* Responsive width */
+    max-width: 450px; /* Desktop cap */
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+/* Mobile-specific logo scaling */
+@media (max-width: 480px) {
+    #logo {
+        width: 70vw;
+        max-width: 450px;
+        top: 40% !important; /* Lower position */
+    }
+    #tagline {
+        top: calc(40% + 90px) !important; /* Adjusted spacing */
+    }
+}
+
+
+/* 🌟 Faster Keyframe Animations */
+@keyframes slideIn {
+    0% {
+        transform: translate(-50%, -50%) translateX(-200px);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* 🌟 Tagline - FIXED */
+#tagline {
+    position: absolute;
+    top: calc(47% + 50px);
+    left: 53%;
+    transform: translate(-50%, -50%) scale(0);
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    animation: popIn 0.6s ease-in-out 0.3s forwards;
+}
+
+/* ===== ONBOARDING SCREEN - FIXED CENTERING ===== */
+#onboarding-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Ensure full viewport height */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* This is key for vertical centering */
+    background: #2E7D32;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    z-index: 999;
+    overflow-y: auto; /* Keep this for safety but shouldn't be needed */
+    box-sizing: border-box; /* Include padding in height calculation */
+}
+
+/* ===== ONBOARDING CONTAINER - PROPER CENTERING ===== */
+.onboarding-container {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Make container at least viewport height */
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* Decorative background elements matching Figma */
+.onboarding-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
+    z-index: -1;
+}
+
+/* ===== ONBOARDING STEPS - OPTIMIZED ANIMATIONS ===== */
+.onboarding-step {
+    position: absolute; /* Changed from relative to absolute */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateX(120%); /* Start off-screen right */
+    width: calc(100% - 40px);
+    max-width: 380px;
+    background: white;
+    padding: 32px 24px;
+    border-radius: 24px;
+    box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transition: all 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform, opacity;
+    z-index: 1;
+}
+
+.onboarding-step.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateX(0);
+    z-index: 2; /* Ensure active card is above others */
+    filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15)); /* Depth boost */
+}
+
+.onboarding-step.exit {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateX(-120%); /* Exit to left */
+    transition-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19); /* Snappier exit */
+}
+
+/* ===== ANIMATION TWEAKS ===== */
+/* Add these new animation styles */
+@keyframes slideInFromRight {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateX(120%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateX(0);
+    }
+}
+
+@keyframes slideOutToLeft {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateX(-120%);
+    }
+}
+
+/* Apply the animations */
+.onboarding-step.active {
+    animation: slideInFromRight 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.onboarding-step.exit {
+    animation: slideOutToLeft 0.4s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+}
+
+/* ===== OPTIMIZED CONTAINER ===== */
+.onboarding-container {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    padding: 40px 20px;
+    overflow: hidden; /* Prevent scrollbars during animation */
+}
+
+
+/* ===== FIGMA-MATCHED TYPOGRAPHY ===== */
+.onboarding-step h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.onboarding-step p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    padding: 0 4px;
+}
+
+/* ===== IMAGES - FIGMA SPECIFIC ===== */
+.onboarding-step .image-holder {
+    width: 100%;
+    margin-bottom: 24px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.onboarding-step img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* ===== BUTTONS - FIGMA STYLE ===== */
+.onboarding-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+    position: relative;
+    z-index: 3;
+}
+
+.onboarding-buttons button {
+    padding: 14px 32px;
+    background: #2E7D32;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    max-width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.onboarding-buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.onboarding-buttons button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== PROGRESS DOTS - INSIDE CONTAINER ===== */
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 16px 0 8px;
+}
+
+.progress-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(46, 125, 50, 0.3);
+    transition: all 0.3s ease;
+}
+
+.progress-dots .dot.active {
+    background: #2E7D32;
+    transform: scale(1.3);
+     animation: pulse 1.5s infinite; /* Subtle heartbeat */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1.3); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1.3); }
+}
+
+/* ===== ENHANCED RESPONSIVE DESIGN ===== */
+@media (max-width: 480px) {
+    .onboarding-container {
+        padding: 20px;
+    }
+    
+    .onboarding-step {
+        width: calc(100% - 32px);
+        padding: 24px 16px;
+        border-radius: 20px;
+    }
+    
+    .onboarding-step h3 {
+        font-size: 22px;
+    }
+    
+    .onboarding-step p {
+        font-size: 15px;
+    }
+    
+    .onboarding-step img {
+        height: 380px;
+    }
+    
+    .onboarding-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .onboarding-buttons button {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    .onboarding-step {
+        padding: 20px 16px;
+    }
+    
+    .onboarding-step h3 {
+        font-size: 20px;
+    }
+    
+    .onboarding-step p {
+        font-size: 14px;
+    }
+    
+    .onboarding-step img {
+        height: 200px;
+    }
+    
+    .progress-dots {
+        margin-top: 16px;
+    }
+}
+
+/* Add to your media queries */
+@media (max-width: 380px) {
+    .onboarding-step {
+        padding: 20px 12px;
+        width: calc(100% - 24px); /* More breathing room */
+    }
+    
+    #logo {
+        width: 65vw;
+        top: 38% !important;
+    }
+    
+    .onboarding-step img {
+        height: 180px; /* Better aspect ratio */
+    }
+}
+
+/* ===== SLIDE TRANSITION ANIMATIONS ===== */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+@media (max-width: 480px) {
+    .onboarding-step {
+        transition-duration: 0.35s; /* Faster on mobile */
+        width: calc(100% - 32px);
+        padding: 28px 20px;
+    }
+    
+    .onboarding-step.active {
+        animation-duration: 0.35s;
+    }
+    
+    .onboarding-step.exit {
+        animation-duration: 0.3s;
+    }
+    
+    /* Smoother mobile transitions */
+    @keyframes slideInFromRight {
+        0% { transform: translate(-50%, -50%) translateX(100%); }
+        100% { transform: translate(-50%, -50%) translateX(0); }
+    }
+}
