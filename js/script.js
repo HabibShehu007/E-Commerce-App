@@ -88,22 +88,25 @@ nextBtn.addEventListener("click", () => {
 });
 
 startBtn.addEventListener("click", () => {
+    console.log("🚀 Get Started button clicked! Attempting redirect...");
+
     const loadingOverlay = document.getElementById("loading-overlay");
+    if (!loadingOverlay) {
+        console.error("❌ loading-overlay element NOT FOUND!");
+        return;
+    }
+
     loadingOverlay.style.display = "flex";
-    setTimeout(() => loadingOverlay.style.opacity = "1", 10); // Smooth fade-in
+    setTimeout(() => loadingOverlay.style.opacity = "1", 10);
 
     onboardingScreen.style.opacity = "0";
 
     setTimeout(() => {
-        if (window.location.pathname.includes("index.html")) {
-            window.location.href = "pages/registration.html";
-        } else {
-            loadingOverlay.style.opacity = "0";
-            setTimeout(() => loadingOverlay.style.display = "none", 600); // Extended duration
-            startBtn.disabled = false;
-        }
-    }, 3500); // Spinner now lasts **3.5 seconds** before redirect
+        console.log("✅ Redirecting NOW...");
+        window.location.href = "pages/registration.html";  
+    }, 3500);
 });
+
 
 
 // ===== WINDOW RESIZE HANDLER =====

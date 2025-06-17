@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Verification</title>
+    <link rel="stylesheet" href="../css/verifyphone.css">
+</head>
+<body>
+
+    <!-- Verification Container -->
+    <main class="verification-container">
+        <div class="verification-card">
+            <h1>Phone Verification</h1>
+            <p id="verification-detail">Verification code sent to +234 ******1234</p>
+
+            <!-- OTP Input Section -->
+            <div class="otp-input-container">
+                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter first digit of OTP">
+                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter second digit of OTP">
+                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter third digit of OTP">
+                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter fourth digit of OTP">
+                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter fifth digit of OTP">
+                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter sixth digit of OTP">
+            </div>
+
+            <!-- Countdown Timer & Resend Button -->
+            <p id="timer">Code expires in 60s</p>
+            <button id="resend-code" class="resend-btn">Resend Code</button>
+
+            <!-- Submit Button -->
+            <button class="submit-button">Verify OTP</button>
+        </div>
+    </main>
+
+    <script src="../js/verifyphone.js"></script>
+</body>
+</html>

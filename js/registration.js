@@ -60,7 +60,11 @@ document.getElementById("registration-form").addEventListener("submit", function
         return;
     }
 
-    // Show verification modal instead of submitting
+    // **Store user data for verification**
+    sessionStorage.setItem("userEmail", email);
+    sessionStorage.setItem("userPhone", phone);
+
+    // Show verification modal
     const modal = document.getElementById("verification-modal");
     modal.classList.add("active"); // Show modal with animation
     document.body.classList.add("modal-active"); // Apply focus mode
@@ -72,28 +76,17 @@ document.getElementById("verification-modal").addEventListener("click", function
     event.stopPropagation(); // Prevent unintended dismissals
 });
 
-// ===== Handle Verification Method Selection & Redirect to Single Page =====
+// ===== Handle Verification Method Selection & Redirect to Correct Page =====
 document.getElementById("verify-phone").addEventListener("click", function () {
     sessionStorage.setItem("verificationType", "phone"); // Store user's choice
     setTimeout(() => document.body.classList.remove("modal-active"), 500); // Smoothly remove focus effect
-    window.location.href = "verify.html"; // Redirect to single verification page
+    window.location.href = "verifyphone.html"; // ✅ FIXED PATH!
 });
 
 document.getElementById("verify-email").addEventListener("click", function () {
     sessionStorage.setItem("verificationType", "email"); // Store user's choice
     setTimeout(() => document.body.classList.remove("modal-active"), 500); // Smoothly remove focus effect
-    window.location.href = "verify.html"; // Redirect to single verification page
+    window.location.href = "verifyemail.html"; // ✅ FIXED PATH!
 });
 
-// ===== Update Verification Page Based on User Selection =====
-document.addEventListener("DOMContentLoaded", function () {
-    const verificationType = sessionStorage.getItem("verificationType");
 
-    if (verificationType === "phone") {
-        document.getElementById("verification-method").textContent = "Phone Number";
-        document.getElementById("verification-detail").textContent = "+234 *** *** 1234"; // Example phone
-    } else if (verificationType === "email") {
-        document.getElementById("verification-method").textContent = "Email Address";
-        document.getElementById("verification-detail").textContent = "T*********@gmail.com"; // Example email
-    }
-});
