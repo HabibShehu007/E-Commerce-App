@@ -1,12 +1,13 @@
-/* ===== BASE STYLES ===== */
+
+/* === BASE RESET & THEME === */
 :root {
-  --primary: #8BC34A; /* Light green */
-  --primary-dark: #7CB342; /* Slightly deeper shade */
-  --text-dark: #1A1A1A; /* Headlines */
-  --text-light: #666666; /* Subtext */
-  --border: #E0E0E0; /* Input borders */
-  --bg-white: #FFFFFF; /* Card background */
-  --bg-gray: #F8F8F8; /* Page background */
+  --primary: #8BC34A;
+  --primary-dark: #7CB342;
+  --text-dark: #1A1A1A;
+  --text-light: #666;
+  --border: #E0E0E0;
+  --bg-white: #fff;
+  --bg-gray: #F8F8F8;
 }
 
 * {
@@ -15,54 +16,73 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
   font-family: 'Inter', sans-serif;
-  background-color: #8BC34A;
+  background-color: var(--primary);
   color: var(--text-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  animation: fadeInPage 0.1s ease-in-out forwards;
+}
+
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* === CONTAINER SETUP === */
+body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  overflow: hidden;
+  padding: 40px 20px;
 }
 
-
-/* ===== REGISTRATION CONTAINER ===== */
 .registration-container {
   width: 100%;
   max-width: 600px;
-  padding: 55px;
-  min-height: 600px;
+  padding: 40px;
+  min-height: auto;
 }
 
-/* ===== REGISTRATION CARD ===== */
+/* === CARD STRUCTURE === */
 .registration-card {
   background: var(--bg-white);
-  border-radius: 15px;
-  padding: 54px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  max-height: 700px;
-  max-width: 680px;;
-  min-height: 650px;
-  overflow-y: auto;
+  border-radius: 16px;
+  padding: 48px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  min-height: auto;
+  max-height: none;
+  overflow-y: visible;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInCard 0.6s ease-out forwards;
 }
 
-/* ===== HEADING & SUBTEXT ===== */
+@keyframes fadeInCard {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === TYPOGRAPHY === */
 h1 {
-  font-size: 25px;
+  font-size: 26px;
   font-weight: 800;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .subtext {
-  color: var(--text-light);
-  font-size: 18px;
+  font-size: 17px;
   text-align: center;
-  margin-bottom: 24px;
+  color: var(--text-light);
+  margin-bottom: 28px;
 }
 
-/* ===== FORM INPUT STYLING ===== */
+/* === INPUT GROUP WRAPPERS === */
 .input-group {
   position: relative;
   margin-bottom: 24px;
@@ -72,82 +92,96 @@ h1 {
   width: 100%;
   height: 50px;
   padding: 14px;
+  font-size: 16px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  font-size: 16px;
+  background: var(--bg-white);
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
-/* Country Code Inside Input Field */
-.phone-group {
-  display: flex;
-  align-items: center;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-}
-
-.country-code select {
-  border: none;
-  background: transparent;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.phone-group input {
-  flex: 1;
-  padding: 14px;
-  border: none;
-}
-
-/* Floating Labels */
+/* === FLOATING LABELS === */
 .input-group label {
   position: absolute;
-  left: 14px;
   top: 14px;
+  left: 14px;
   color: var(--text-light);
+  font-size: 16px;
   background: var(--bg-white);
   padding: 0 4px;
-  transition: all 0.3s;
   pointer-events: none;
-  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown) + label {
   top: -8px;
+  left: 12px;
   font-size: 12px;
   color: var(--primary);
 }
 
-/* ===== PASSWORD TOGGLE BUTTON ===== */
+/* === PHONE INPUT GROUP === */
+.phone-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-white);
+}
+
+.country-code select {
+  border: none;
+  background: transparent;
+  padding: 10px 12px;
+  font-size: 16px;
+  outline: none;
+  color: var(--text-dark);
+}
+
+.phone-group input {
+  flex: 1;
+  padding: 14px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+/* === PASSWORD TOGGLE BUTTON === */
 .password-toggle {
   position: absolute;
-  right: 16px;
   top: 50%;
+  right: 14px;
   transform: translateY(-50%);
   background: none;
   border: none;
-  cursor: pointer;
   font-size: 20px;
   color: var(--text-light);
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .password-toggle:hover {
   color: var(--primary);
 }
 
-/* ===== TERMS & CONDITIONS ===== */
+/* === CHECKBOX GROUP === */
 .checkbox-group {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
+  font-size: 14px;
+  color: var(--text-light);
 }
 
 .checkbox-group input {
   accent-color: var(--primary);
+  width: 18px;
+  height: 18px;
 }
 
-/* ===== SUBMIT BUTTON ===== */
+/* === SUBMIT BUTTON === */
 .submit-button {
   width: 100%;
   height: 54px;
@@ -158,145 +192,210 @@ h1 {
   font-weight: 700;
   font-size: 18px;
   cursor: pointer;
-  transition: background 0.3s;
+  box-shadow: 0 4px 10px rgba(139, 195, 74, 0.3);
+  transition: all 0.3s ease;
 }
 
 .submit-button:hover {
   background: var(--primary-dark);
-}
-
-/* ===== RESPONSIVE FIXES ===== */
-@media (max-width: 600px) {
-  .registration-card {
-    padding: 24px;
-  }
-}
-
-/* ===== LANDING ANIMATION ===== */
-.registration-card {
-    opacity: 0;
-    transform: translateY(50px);
-    animation: fadeInUp 0.6s ease-in-out forwards;
-}
-
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ===== INPUT FOCUS ANIMATION ===== */
-.input-group input {
-    transition: border 0.3s, box-shadow 0.3s;
-}
-
-.input-group input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 8px rgba(139, 195, 74, 0.3);
-}
-
-/* ===== BUTTON HOVER & ACTIVE STATES ===== */
-.submit-button {
-    transition: all 0.3s ease-in-out;
-}
-
-.submit-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(139, 195, 74, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(139, 195, 74, 0.4);
 }
 
 .submit-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 4px rgba(139, 195, 74, 0.2);
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(139, 195, 74, 0.2);
 }
 
-
-/* Dim Background When Modal is Active */
+/* === MODAL OVERLAY PREP === */
 body.modal-active {
-    background: rgba(41, 75, 12, 0.8); /* Darken background */
+  background: rgba(41, 75, 12, 0.85);
+  overflow: hidden;
 }
 
-/* Hide Registration Container When Modal is Active */
 body.modal-active .registration-card {
-    display: none;
+  display: none;
+  pointer-events: none;
 }
 
-/* Modal Styling */
+/* === MODAL STRUCTURE === */
 .modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    width: 370px;
-    background: white;
-    padding: 40px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-    text-align: center;
-    border-radius: 8px;
-    opacity: 0;
-    z-index: 9999; /* Ensure modal is above everything */
-    pointer-events: auto; /* Allow clicking inside modal */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  width: 400px;
+  max-width: 90vw;
+  background: var(--bg-white);
+  padding: 36px 28px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  text-align: center;
+  border-radius: 12px;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Smooth Animation When Modal is Shown */
-@keyframes modalFadeIn {
-    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-
-/* Apply Animation When Modal is Active */
+/* === WHEN ACTIVE === */
 .modal.active {
-    display: block;
-    animation: modalFadeIn 0.3s ease-in-out forwards;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+  animation: modalFadeIn 0.3s ease-out forwards;
 }
 
-/* Ensure Background Doesn't Interact While Modal is Open */
-body.modal-active .registration-card {
-    pointer-events: none;
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
-/* Modal Button Styling */
+/* === MODAL TEXT === */
+.modal h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.modal p {
+  font-size: 15px;
+  color: var(--text-light);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* === MODAL BUTTONS === */
 .modal-btn {
-    width: 70%;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    border-radius: 10px;
-    cursor: pointer;
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--primary);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .modal-btn:hover {
-    background-color: #0b100b;
+  background-color: var(--primary-dark);
 }
 
+/* === TABLETS (≤768px) === */
+@media (max-width: 768px) {
+  .registration-container {
+    padding: 24px 16px;
+  }
 
+  .registration-card {
+    padding: 32px 20px;
+    border-radius: 12px;
+  }
 
-/* ===== PASSWORD TOGGLE ICON ANIMATION ===== */
-.password-toggle {
-    transition: color 0.3s ease-in-out;
+  h1 {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+
+  .subtext {
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
+
+  .input-group input,
+  .phone-group input,
+  .country-code select {
+    font-size: 15px;
+    height: 46px;
+  }
+
+  .submit-button {
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .modal {
+    width: 90%;
+    padding: 24px 20px;
+  }
+
+  .modal h2 {
+    font-size: 18px;
+  }
+
+  .modal p {
+    font-size: 14px;
+  }
+
+  .modal-btn {
+    font-size: 15px;
+    padding: 12px;
+  }
 }
 
-.password-toggle:hover {
-    color: var(--primary);
+/* === SMALL SCREENS (≤480px) === */
+@media (max-width: 480px) {
+  body {
+    padding-top: 24px;
+  }
+
+  .registration-card {
+    padding: 24px 16px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .subtext {
+    font-size: 14px;
+  }
+
+  .checkbox-group {
+    font-size: 13px;
+    gap: 8px;
+  }
+
+  .input-group label {
+    font-size: 14px;
+  }
 }
 
-/* ===== SMOOTH PAGE TRANSITION FROM ONBOARDING ===== */
-body {
-    opacity: 0;
-    animation: pageFadeIn 0.1s ease-in-out forwards;
-}
+/* === COMPACT DEVICES (≤380px) === */
+@media (max-width: 380px) {
+  .registration-card {
+    padding: 20px 14px;
+  }
 
-@keyframes pageFadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+  h1 {
+    font-size: 18px;
+  }
+
+  .submit-button {
+    font-size: 15px;
+    height: 44px;
+  }
+
+  .input-group input,
+  .phone-group input {
+    font-size: 14px;
+    height: 42px;
+  }
+
+  .country-code select {
+    font-size: 14px;
+  }
+
+  .modal {
+    padding: 20px 16px;
+  }
 }
 

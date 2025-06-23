@@ -27,6 +27,8 @@ body {
     text-align: center;
 }
 
+
+
 /* ===== OTP Input Container ===== */
 .otp-input-container {
     display: flex;
@@ -95,3 +97,98 @@ body {
     color: #d9534f; /* Red color for urgency */
     margin-top: 10px;
 }
+
+/* ===== Adjust Container Height for Better Balance ===== */
+.verification-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 110vh; /* Increased to ensure better spacing */
+    padding: 20px; /* Prevents touching screen edges */
+}
+
+/* ===== Ensure OTP Inputs & Timer Stay Unchanged ===== */
+.otp-input-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* ===== Push Verify OTP Button Down Slightly ===== */
+.submit-button {
+    margin-top: 100px; /* Moves it slightly lower */
+}
+
+/* ===== Ensure Full Responsiveness Across All Screens ===== */
+@media screen and (max-width: 1024px) {
+    .verification-container {
+        height: 100vh;
+        padding: 40px;
+    }
+
+    .verification-card {
+        width: 95%;
+        max-width: 400px;
+        padding: 32px;
+    }
+
+    .otp-input {
+        width: 44px;
+        height: 54px;
+        font-size: 21px;
+    }
+
+    .submit-button {
+        margin-top: 80px; /* Push button down for better spacing */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .verification-container {
+        height: 100vh;
+        padding: 35px;
+    }
+
+    .verification-card {
+        width: 90%;
+        max-width: 380px;
+        padding: 30px;
+    }
+
+    .otp-input {
+        width: 42px;
+        height: 52px;
+        font-size: 20px;
+    }
+
+    .submit-button {
+        margin-top: 90px; /* Keeps button properly positioned */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .verification-container {
+        height: 100vh;
+        padding: 30px;
+    }
+
+    .verification-card {
+        width: 95%;
+        max-width: 350px;
+        padding: 28px;
+    }
+
+    .otp-input {
+        width: 40px;
+        height: 50px;
+        font-size: 19px;
+    }
+
+    .submit-button {
+        margin-top: 100px; /* Ensures balance across smaller screens */
+    }
+}
+
+
