@@ -1,0 +1,41 @@
+/* Responsive patch for shared verification layouts */
+
+@media (max-width: 415px) {
+  .otp-input-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 4px;
+  }
+
+  .otp-input {
+    width: 38px;
+    height: 50px;
+    font-size: 17px;
+  }
+
+  .verification-card {
+    padding: 24px 14px;
+  }
+
+  .masked-number,
+  .masked-email {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 320px) {
+  .otp-input {
+    width: 32px;
+    font-size: 14px;
+  }
+
+  .otp-input-container {
+    gap: 4px;
+  }
+
+  .verification-card {
+    padding: 20px 10px;
+  }
+}

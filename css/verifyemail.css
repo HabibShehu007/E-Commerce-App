@@ -24,7 +24,7 @@ html, body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* === PAGE STRUCTURE === */
+/* === CONTAINER STRUCTURE === */
 body {
   display: flex;
   justify-content: center;
@@ -41,6 +41,7 @@ body {
   align-items: center;
 }
 
+/* === CARD DESIGN === */
 .verification-card {
   background: var(--bg-white);
   padding: 40px 28px;
@@ -66,8 +67,8 @@ body {
   }
 }
 
-/* === MASKED NUMBER DISPLAY === */
-.masked-number {
+/* === EMAIL INFO === */
+.masked-email {
   font-size: 14px;
   color: var(--button);
   margin-top: 8px;
@@ -76,7 +77,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .masked-number {
+  .masked-email {
     font-size: 13px;
     margin-bottom: 6px;
   }
@@ -87,12 +88,23 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   flex-wrap: nowrap;
   margin: 0 auto;
   padding: 0 8px;
   max-width: 320px;
   box-sizing: border-box;
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+.otp-input.shake {
+  animation: shake 0.1s ease;
 }
 
 .otp-input {
@@ -113,19 +125,7 @@ body {
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
 }
 
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  50% { transform: translateX(4px); }
-  75% { transform: translateX(-4px); }
-  100% { transform: translateX(0); }
-}
-
-.otp-input.shake {
-  animation: shake 0.1s ease;
-}
-
-/* === BUTTONS === */
+/* === BUTTON STYLES === */
 .submit-button,
 .resend-btn {
   width: 100%;
@@ -175,7 +175,30 @@ body {
   margin-top: 12px;
 }
 
-/* === RESPONSIVE: SMALL SCREENS (≤480px) === */
+/* === RESPONSIVE — TABLETS (≤768px) === */
+@media (max-width: 768px) {
+  .verification-card {
+    padding: 28px 20px;
+  }
+
+  .otp-input {
+    width: 44px;
+    height: 54px;
+    font-size: 20px;
+  }
+
+  .submit-button {
+    margin-top: 32px;
+    font-size: 15px;
+    height: auto;
+  }
+
+  .resend-btn {
+    font-size: 14px;
+  }
+}
+
+/* === SMALL SCREENS (≤480px) === */
 @media (max-width: 480px) {
   body {
     padding-top: 24px;
@@ -197,54 +220,39 @@ body {
     margin-top: 28px;
   }
 
-  .resend-btn {
-    font-size: 14px;
-  }
-
   #timer {
     font-size: 13px;
     margin-top: 10px;
   }
-
-  .masked-number {
-    font-size: 13px;
-    margin-bottom: 6px;
-  }
 }
 
-/* === COMPACT DEVICES (≤380px & ≤360px) === */
-@media (max-width: 380px) {
-  .verification-card {
-    padding: 20px 12px;
+/* === COMPACT SCREENS (≤360px) === */
+@media (max-width: 360px) {
+
+  .verification-card{
+    padding: 20px 9px;
   }
 
   .otp-input {
     width: 38px;
     height: 50px;
-    font-size: 17px;
-  }
-
-  .submit-button {
-    font-size: 14px;
-    padding: 11px;
-  }
-}
-
-@media (max-width: 360px) {
-  .otp-input {
-    width: 34px;
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .otp-input-container {
-    padding: 0 6px;
-    gap: 6px;
+    padding: 0 4px;
+    gap: 5px;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+  }
+
+  .otp-modal-content {
+    padding: 24px 16px;
+    font-size: 15px;
   }
 }
 
-/* === MODAL === */
+/* === Modal Styling === */
 .otp-modal {
   position: fixed;
   top: 0; left: 0;
@@ -258,14 +266,18 @@ body {
 
 .otp-modal-content {
   background: #fff;
+  max-width: 90%;
+  width: 100%;
   padding: 32px 20px;
   border-radius: 12px;
   text-align: center;
-  animation: popIn 0.2s ease;
-  max-width: 90%;
-  width: 100%;
-  box-sizing: border-box;
+  animation: popIn 0.1s ease-in-out;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 #otp-feedback-icon {
@@ -284,12 +296,7 @@ body {
   font-weight: 600;
 }
 
-@keyframes popIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-/* === TOAST === */
+/* === Toast Notification === */
 .otp-toast {
   position: fixed;
   bottom: 40px;
@@ -310,3 +317,4 @@ body {
   opacity: 1;
   transform: translateY(-10px);
 }
+

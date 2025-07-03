@@ -1,24 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Get and mask the stored phone number
-     const phone = sessionStorage.getItem("userPhone");
-const display = document.querySelector(".masked-number");
+  // 1. Get and mask the stored email
+  const email = sessionStorage.getItem("userEmail");
+  const display = document.querySelector(".masked-email");
 
-if (phone && display && phone.length >= 13) {
-  const masked = phone.replace(/(\+\d{3})(\d{3})(\d{3})(\d{4})/, "$1 *** *** $4");
-  display.textContent = `Enter Code sent to : ${masked}`;
-} else if (display) {
-  display.textContent = `Code sent to your phone number`;
-}
+  if (email && display) {
+    const masked = maskEmail(email);
+    display.textContent = `Code sent to: ${masked}`;
+  }
 
-
-  // 2. Autofocus & tab between OTP inputs
+  // 2. Autofocus and tab between OTP inputs
   const otpInputs = document.querySelectorAll(".otp-input");
+
   otpInputs.forEach((input, index) => {
     input.addEventListener("input", () => {
       if (input.value.length === 1 && index < otpInputs.length - 1) {
         otpInputs[index + 1].focus();
       }
     });
+
     input.addEventListener("keydown", (e) => {
       if (e.key === "Backspace" && !input.value && index > 0) {
         otpInputs[index - 1].focus();
@@ -27,11 +26,13 @@ if (phone && display && phone.length >= 13) {
   });
 
   // 3. OTP verification logic
-  const OTP = "123456";
+  const OTP = "654321"; // Demo OTP
   const verifyBtn = document.querySelector(".submit-button");
 
   verifyBtn.addEventListener("click", () => {
-    const entered = Array.from(otpInputs).map(input => input.value.trim()).join("");
+    const entered = Array.from(otpInputs)
+      .map(input => input.value.trim())
+      .join("");
 
     if (entered === OTP) {
       showModal("success");
@@ -48,22 +49,23 @@ if (phone && display && phone.length >= 13) {
     }
   });
 
-  // 4. Start resend code timer
+  // 4. Resend button logic
   const resendBtn = document.getElementById("resend-code");
+
   if (resendBtn) {
     resendBtn.innerHTML = 'Resend Code in <span id="timer">60</span>s';
     const timerDisplay = document.getElementById("timer");
     startCountdown(60, timerDisplay, resendBtn);
 
     resendBtn.addEventListener("click", () => {
-      showToast("🔁 OTP re-sent!");
+      showToast("📧 Code re-sent to your email!");
       resendBtn.innerHTML = 'Resend Code in <span id="timer">60</span>s';
       const newTimer = document.getElementById("timer");
       startCountdown(60, newTimer, resendBtn);
     });
   }
 
-  // 5. Modal close logic
+  // 5. Modal Close Button
   const closeBtn = document.getElementById("otp-close-btn");
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
@@ -71,16 +73,25 @@ if (phone && display && phone.length >= 13) {
       modal.style.display = "none";
 
       const title = document.getElementById("otp-feedback-title");
-      if (title.textContent === "OTP Verified!") {
+      if (title.textContent.includes("Verified")) {
         setTimeout(() => {
-          window.location.href = "dashboard.html"; // redirect after close
+          window.location.href = "dashboard.html";
         }, 300);
       }
     });
   }
 });
 
-// Countdown
+// Utility: Email masking logic
+function maskEmail(email) {
+  const [user, domain] = email.split("@");
+  if (!user || !domain) return email;
+  const visible = user.slice(0, 3);
+  const masked = visible + "*".repeat(user.length - 3);
+  return `${masked}@${domain}`;
+}
+
+// Utility: Countdown logic
 function startCountdown(duration, display, button) {
   let timer = duration;
   button.disabled = true;
@@ -98,7 +109,7 @@ function startCountdown(duration, display, button) {
   }, 1000);
 }
 
-// Feedback modal
+// Utility: Modal Feedback
 function showModal(type) {
   const modal = document.getElementById("otp-feedback-modal");
   const icon = document.getElementById("otp-feedback-icon");
@@ -107,21 +118,22 @@ function showModal(type) {
 
   if (type === "success") {
     icon.textContent = "✅";
-    title.textContent = "OTP Verified!";
-    message.textContent = "Your phone number has been successfully verified.";
+    title.textContent = "Email Verified!";
+    message.textContent = "Your email has been successfully verified.";
   } else {
     icon.textContent = "❌";
-    title.textContent = "Incorrect OTP";
-    message.textContent = "The code you entered is invalid. Please try again.";
+    title.textContent = "Incorrect Code";
+    message.textContent = "The code entered is invalid. Please try again.";
   }
 
   modal.style.display = "flex";
 }
 
-// Toast animation
+// Utility: Toast Notification
 function showToast(msg) {
   const toast = document.getElementById("otp-toast");
   toast.textContent = msg;
   toast.classList.add("show");
   setTimeout(() => toast.classList.remove("show"), 3000);
 }
+

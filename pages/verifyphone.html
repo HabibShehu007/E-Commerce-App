@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Verification</title>
-    <link rel="stylesheet" href="../css/verifyphone.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phone Verification</title>
+  <link rel="stylesheet" href="../css/verifyphone.css" />
+  <link rel="stylesheet" href="../css/verify-responsive.css" />
+
 </head>
 <body>
 
-    <!-- Verification Container -->
-    <main class="verification-container">
-        <div class="verification-card">
-            <h1>Phone Verification</h1>
-            <p id="verification-detail">Verification code sent to +234 ******1234</p>
+  <!-- Verification Container -->
+  <main class="verification-container">
+    <div class="verification-card">
+      <h1>Phone Verification</h1>
+      <p class="masked-number">Verification code sent to your number</p>
 
-            <!-- OTP Input Section -->
-            <div class="otp-input-container">
-                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter first digit of OTP">
-                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter second digit of OTP">
-                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter third digit of OTP">
-                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter fourth digit of OTP">
-                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter fifth digit of OTP">
-                <input type="text" maxlength="1" class="otp-input" placeholder="0" title="Enter sixth digit of OTP">
-            </div>
+      <!-- OTP Input Section -->
+      <div class="otp-input-container">
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" title="Enter first digit" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" title="Enter second digit" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" title="Enter third digit" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" title="Enter fourth digit" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" title="Enter fifth digit" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" title="Enter sixth digit" />
+      </div>
 
-            <!-- Countdown Timer & Resend Button -->
-            <p id="timer">Code expires in 60s</p>
-            <button id="resend-code" class="resend-btn">Resend Code</button>
+      <!-- Timer & Resend Button -->
+      <button id="resend-code" class="resend-btn">
+        Resend Code in <span id="timer">60</span>s
+      </button>
 
-            <!-- Submit Button -->
-            <button class="submit-button">Verify OTP</button>
-        </div>
-    </main>
+      <!-- Submit Button -->
+      <button class="submit-button">Verify OTP</button>
+    </div>
+  </main>
 
-    <script src="../js/verifyphone.js"></script>
+  <!-- Feedback Modal -->
+  <div id="otp-feedback-modal" class="otp-modal">
+    <div class="otp-modal-content">
+      <div id="otp-feedback-icon">🎉</div>
+      <h2 id="otp-feedback-title">Verified!</h2>
+      <p id="otp-feedback-message">Your phone number has been successfully verified.</p>
+      <button id="otp-close-btn">Continue</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="otp-toast" class="otp-toast">OTP re-sent!</div>
+
+  
+  <script src="../js/verifyphone.js"></script>
 </body>
 </html>

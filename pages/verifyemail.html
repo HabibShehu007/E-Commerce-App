@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Verification</title>
+  <link rel="stylesheet" href="../css/verifyemail.css" />
+  <link rel="stylesheet" href="../css/verify-responsive.css" />
+
+</head>
+<body>
+
+  <!-- Email Verification Container -->
+  <main class="verification-container">
+    <div class="verification-card">
+      <h1>Email Verification</h1>
+      <p class="masked-email">A code has been sent to your email.</p>
+
+      <!-- OTP Inputs -->
+      <div class="otp-input-container">
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" />
+        <input type="tel" inputmode="numeric" pattern="\d*" maxlength="1" class="otp-input" placeholder="0" />
+      </div>
+
+      <!-- Resend -->
+      <button id="resend-code" class="resend-btn">
+        Resend Code in <span id="timer">60</span>s
+      </button>
+
+      <!-- Verify Button -->
+      <button class="submit-button">Verify OTP</button>
+    </div>
+  </main>
+
+  <!-- Feedback Modal -->
+  <div id="otp-feedback-modal" class="otp-modal">
+    <div class="otp-modal-content">
+      <div id="otp-feedback-icon">📧</div>
+      <h2 id="otp-feedback-title">Verified!</h2>
+      <p id="otp-feedback-message">Your email has been successfully verified.</p>
+      <button id="otp-close-btn">Continue</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="otp-toast" class="otp-toast">Code re-sent to your email!</div>
+
+  <!-- JS -->
+  <script src="../js/verifyemail.js"></script>
+</body>
+</html>
