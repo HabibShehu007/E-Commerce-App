@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+   <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+   <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <p>Enter your personal details below to proceed</p>
+
+    <form class="login-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter email" required />
+
+      <label for="password">Confirm password</label>
+      <input type="password" id="password" placeholder="Enter password" required />
+
+      <a href="#" class="forgot-link">Forget password</a>
+
+      <button type="submit" class="login-btn">Login</button>
+
+      <p class="signup-text">Don't have an account? <a href="#">Sign up</a></p>
+
+      <div class="or-divider">
+        <span>Or</span>
+      </div>
+
+      <!-- 🍎 Apple Sign-In Button -->
+      <button type="button" class="social-btn apple-btn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" />
+        Continue with Apple
+      </button>
+
+      <!-- 🌐 Google Sign-In Button -->
+      <button type="button" class="social-btn google-btn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" />
+        Continue with Google
+      </button>
+    </form>
+  </div>
+</body>
+</html>

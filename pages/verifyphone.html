@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Phone Verification</title>
+  <link rel="icon" href="../images/phone.ico" type="image/x-icon">
   <link rel="stylesheet" href="../css/verifyphone.css" />
   <link rel="stylesheet" href="../css/verify-responsive.css" />
 
@@ -43,12 +44,12 @@
       <h2 id="otp-feedback-title">Verified!</h2>
       <p id="otp-feedback-message">Your phone number has been successfully verified.</p>
       <button id="otp-close-btn">Continue</button>
+       <div id="otp-loader" class="otp-spinner"></div>
     </div>
   </div>
 
   <!-- Toast Notification -->
   <div id="otp-toast" class="otp-toast">OTP re-sent!</div>
-
   
   <script src="../js/verifyphone.js"></script>
 </body>

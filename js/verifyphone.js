@@ -1,17 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Get and mask the stored phone number
-     const phone = sessionStorage.getItem("userPhone");
-const display = document.querySelector(".masked-number");
+  // 1. Mask phone number
+  const phone = sessionStorage.getItem("userPhone");
+  const display = document.querySelector(".masked-number");
+  if (phone && display && phone.length >= 13) {
+    const masked = phone.replace(/(\+\d{3})(\d{3})(\d{3})(\d{4})/, "$1 *** *** $4");
+    display.textContent = `Enter Code sent to : ${masked}`;
+  } else if (display) {
+    display.textContent = `Code sent to your phone number`;
+  }
 
-if (phone && display && phone.length >= 13) {
-  const masked = phone.replace(/(\+\d{3})(\d{3})(\d{3})(\d{4})/, "$1 *** *** $4");
-  display.textContent = `Enter Code sent to : ${masked}`;
-} else if (display) {
-  display.textContent = `Code sent to your phone number`;
-}
-
-
-  // 2. Autofocus & tab between OTP inputs
+  // 2. OTP input navigation
   const otpInputs = document.querySelectorAll(".otp-input");
   otpInputs.forEach((input, index) => {
     input.addEventListener("input", () => {
@@ -26,17 +24,16 @@ if (phone && display && phone.length >= 13) {
     });
   });
 
-  // 3. OTP verification logic
+  // 3. OTP verification
   const OTP = "123456";
   const verifyBtn = document.querySelector(".submit-button");
-
   verifyBtn.addEventListener("click", () => {
     const entered = Array.from(otpInputs).map(input => input.value.trim()).join("");
 
     if (entered === OTP) {
       showModal("success");
     } else {
-      showModal("error");
+      showErrorModal();
       otpInputs.forEach(input => {
         input.classList.add("shake");
         input.value = "";
@@ -48,7 +45,7 @@ if (phone && display && phone.length >= 13) {
     }
   });
 
-  // 4. Start resend code timer
+  // 4. Resend code timer
   const resendBtn = document.getElementById("resend-code");
   if (resendBtn) {
     resendBtn.innerHTML = 'Resend Code in <span id="timer">60</span>s';
@@ -63,33 +60,32 @@ if (phone && display && phone.length >= 13) {
     });
   }
 
-  // 5. Modal close logic
+  // 5. Success Continue Button with fade
   const closeBtn = document.getElementById("otp-close-btn");
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
       const modal = document.getElementById("otp-feedback-modal");
-      modal.style.display = "none";
+      const loader = document.getElementById("otp-loader");
 
-      const title = document.getElementById("otp-feedback-title");
-      if (title.textContent === "OTP Verified!") {
-        setTimeout(() => {
-          window.location.href = "dashboard.html"; // redirect after close
-        }, 300);
-      }
+      closeBtn.style.display = "none";
+      if (loader) loader.style.display = "block";
+      modal.classList.add("fade-out");
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1500);
     });
   }
 });
 
-// Countdown
+// ⏱ Countdown function
 function startCountdown(duration, display, button) {
   let timer = duration;
   button.disabled = true;
   display.textContent = timer;
-
   const interval = setInterval(() => {
     timer--;
     display.textContent = timer;
-
     if (timer <= 0) {
       clearInterval(interval);
       button.disabled = false;
@@ -98,27 +94,52 @@ function startCountdown(duration, display, button) {
   }, 1000);
 }
 
-// Feedback modal
+// ✅ Unified Success Modal
 function showModal(type) {
   const modal = document.getElementById("otp-feedback-modal");
   const icon = document.getElementById("otp-feedback-icon");
   const title = document.getElementById("otp-feedback-title");
   const message = document.getElementById("otp-feedback-message");
+  const loader = document.getElementById("otp-loader");
+  const closeBtn = document.getElementById("otp-close-btn");
 
   if (type === "success") {
-    icon.textContent = "✅";
-    title.textContent = "OTP Verified!";
-    message.textContent = "Your phone number has been successfully verified.";
-  } else {
-    icon.textContent = "❌";
-    title.textContent = "Incorrect OTP";
-    message.textContent = "The code you entered is invalid. Please try again.";
+    icon.textContent = "🎉";
+    title.textContent = "Verification Complete!";
+    message.textContent = "Your account is good to go ✅";
+    if (loader) loader.style.display = "none";
+    if (closeBtn) {
+      closeBtn.textContent = "Continue";
+      closeBtn.style.display = "inline-block";
+    }
   }
 
   modal.style.display = "flex";
 }
 
-// Toast animation
+// ❌ Error Modal with Retry Button
+function showErrorModal() {
+  const modal = document.getElementById("otp-feedback-modal");
+  const icon = document.getElementById("otp-feedback-icon");
+  const title = document.getElementById("otp-feedback-title");
+  const message = document.getElementById("otp-feedback-message");
+  const loader = document.getElementById("otp-loader");
+  const closeBtn = document.getElementById("otp-close-btn");
+
+  icon.textContent = "❌";
+  title.textContent = "Incorrect OTP";
+  message.textContent = "The code you entered is invalid. Please try again.";
+  if (loader) loader.style.display = "none";
+  if (closeBtn) {
+    closeBtn.textContent = "Retry";
+    closeBtn.style.display = "inline-block";
+    closeBtn.onclick = () => location.reload();
+  }
+
+  modal.style.display = "flex";
+}
+
+// 📢 Toast notification
 function showToast(msg) {
   const toast = document.getElementById("otp-toast");
   toast.textContent = msg;
