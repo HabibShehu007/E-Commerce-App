@@ -60,11 +60,14 @@ document.getElementById("registration-form").addEventListener("submit", function
         return;
     }
 
-    // **Store user data for verification**
+    // ✅ Store user data for verification
     sessionStorage.setItem("userEmail", email);
     sessionStorage.setItem("userPhone", phone);
 
-    // Show verification modal
+    // ✅ Store email in localStorage for Apple/Google buttons
+    localStorage.setItem("registeredEmail", email);
+
+    // ✅ Show verification modal
     const modal = document.getElementById("verification-modal");
     modal.classList.add("active"); // Show modal with animation
     document.body.classList.add("modal-active"); // Apply focus mode
@@ -89,4 +92,48 @@ document.getElementById("verify-email").addEventListener("click", function () {
     window.location.href = "verifyemail.html"; // ✅ FIXED PATH!
 });
 
+const confirmModal = document.getElementById("confirmationModal");
+const confirmTitle = document.getElementById("confirmTitle");
+const confirmMessage = document.getElementById("confirmMessage");
+const confirmOK = document.getElementById("confirmOK");
+const confirmCancel = document.getElementById("confirmCancel");
 
+let redirectToDashboard = false;
+
+function showConfirmation(title, message, shouldRedirect = false) {
+  confirmTitle.textContent = title;
+  confirmMessage.textContent = message;
+  redirectToDashboard = shouldRedirect;
+  confirmModal.style.display = "flex";
+}
+
+confirmOK.addEventListener("click", function () {
+  confirmModal.style.display = "none";
+  if (redirectToDashboard) {
+    window.location.href = "dashboard.html";
+  }
+});
+
+confirmCancel.addEventListener("click", function () {
+  confirmModal.style.display = "none";
+  redirectToDashboard = false;
+});
+
+document.querySelector(".google-btn").addEventListener("click", function () {
+  const email = localStorage.getItem("registeredEmail");
+  if (email) {
+    showConfirmation("Google Account Found", `Sign up with ${email}?`, true);
+  } else {
+    showConfirmation("No Email Found", "Please sign up first.");
+  }
+});
+
+document.querySelector(".apple-btn").addEventListener("click", function () {
+  const email = localStorage.getItem("registeredEmail");
+  if (email) {
+    const appleEmail = email.replace(/@.*$/, "@icloud.com");
+    showConfirmation("Apple ID Found", `Sign up with ${appleEmail}?`, true);
+  } else {
+    showConfirmation("No Email Found", "Please sign up first.");
+  }
+});

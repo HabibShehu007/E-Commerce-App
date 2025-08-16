@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       closeBtn.style.display = "none";
       if (loader) loader.style.display = "block";
-      modal.classList.add("fade-out");
+     
 
       setTimeout(() => {
         window.location.href = "login.html";
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// ⏱ Countdown function
+//  Countdown function
 function startCountdown(duration, display, button) {
   let timer = duration;
   button.disabled = true;

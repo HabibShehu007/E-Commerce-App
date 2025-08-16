@@ -29,18 +29,59 @@
         <span>Or</span>
       </div>
 
-      <!-- 🍎 Apple Sign-In Button -->
+      <!--  Apple Sign-In Button -->
       <button type="button" class="social-btn apple-btn">
         <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" />
         Continue with Apple
       </button>
 
-      <!-- 🌐 Google Sign-In Button -->
+      <!--  Google Sign-In Button -->
       <button type="button" class="social-btn google-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" />
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+
         Continue with Google
-      </button>
     </form>
   </div>
+  <div id="modalOverlay" class="modal-overlay">
+  <div class="modal">
+    <h3>Reset Password</h3>
+    <p>Enter your email to receive reset instructions:</p>
+    <input type="email" id="resetEmail" placeholder="Your email" />
+
+    <div class="modal-actions">
+      <button id="sendReset">Send</button>
+      <button id="closeModal">Cancel</button>
+    </div>
+  </div>
+</div>
+       
+      </button>
+      <!-- Reset Password Modal -->
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal bounce">
+    <h3>Reset Password</h3>
+    <p>Enter your email to receive reset instructions:</p>
+    <input type="email" id="resetEmail" placeholder="Your email" />
+    <div class="modal-actions">
+      <button id="sendReset">Send</button>
+      <button id="closeModal">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal with OK/Cancel -->
+<div id="confirmationModal" class="modal-overlay">
+  <div class="modal bounce">
+    <h3 id="confirmTitle">Success</h3>
+    <p id="confirmMessage">Your action was completed.</p>
+    <div class="modal-actions">
+      <button id="confirmOK">OK</button>
+      <button id="confirmCancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+       <script src="../js/login.js"></script>
 </body>
 </html>
