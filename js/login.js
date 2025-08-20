@@ -64,3 +64,28 @@
     showConfirmation("Apple ID Found", `Sign up with habib@icloud.com?`, true);
   });
 
+document.querySelector(".login-btn").addEventListener("click", function (e) {
+  e.preventDefault(); // Prevent form submission
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!email || !password) {
+    showConfirmation("Login Failed", "Please enter both email and password.");
+    return;
+  }
+
+  // Optional: Match with stored credentials
+  const registeredEmail = localStorage.getItem("registeredEmail");
+  const registeredPassword = localStorage.getItem("registeredPassword");
+
+  if (registeredEmail && registeredPassword) {
+    if (email !== registeredEmail || password !== registeredPassword) {
+      showConfirmation("Login Failed", "Incorrect email or password.");
+      return;
+    }
+  }
+
+  // Success
+  showConfirmation("Login Successful", `Welcome back, ${email}`, true);
+});

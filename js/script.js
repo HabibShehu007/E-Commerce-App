@@ -1,4 +1,4 @@
-// ===== DOM ELEMENTS =====
+//  DOM ELEMENTS 
 const splashScreen = document.getElementById("splash-screen");
 const onboardingScreen = document.getElementById("onboarding-screen");
 const onboardingContainer = document.querySelector(".onboarding-container");
@@ -8,11 +8,11 @@ const startBtn = document.getElementById("start-btn");
 const progressDots = document.querySelectorAll(".progress-dots .dot");
 const loadingOverlay = document.getElementById("loading-overlay");
 
-// ===== STATE MANAGEMENT =====
+//  STATE MANAGEMENT 
 let currentStep = 0;
 const totalSteps = onboardingSteps.length;
 
-// ===== CENTERING FUNCTION =====
+//  CENTERING FUNCTION 
 function centerOnboarding() {
   const windowHeight = window.innerHeight;
   const containerHeight = onboardingContainer.offsetHeight;
@@ -23,7 +23,7 @@ function centerOnboarding() {
   onboardingContainer.style.paddingBottom = containerHeight > windowHeight ? "20px" : "40px";
 }
 
-// ===== SPLASH + ZOMBIE CLEANUP =====
+//  SPLASH + ZOMBIE CLEANUP 
 document.addEventListener("DOMContentLoaded", function () {
   if (loadingOverlay) {
     loadingOverlay.style.display = "none";
@@ -53,11 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 1800);
 });
 
-// ===== INITIAL SETUP =====
+//  INITIAL SETUP 
 onboardingSteps[0].classList.add("active");
 centerOnboarding();
 
-// ===== STEP MANAGEMENT =====
+//  STEP MANAGEMENT 
 function showOnboardingStep(stepIndex) {
   if (stepIndex < 0 || stepIndex >= totalSteps) return;
 
@@ -83,7 +83,7 @@ function showOnboardingStep(stepIndex) {
   startBtn.style.display = stepIndex === totalSteps - 1 ? "block" : "none";
 }
 
-// ===== EVENT LISTENERS =====
+//  EVENT LISTENERS 
 nextBtn.addEventListener("click", () => {
   if (currentStep < totalSteps - 1) {
     currentStep++;
@@ -119,10 +119,10 @@ startBtn.addEventListener("click", () => {
 });
 
 
-// ===== WINDOW RESIZE =====
+// WINDOW RESIZE 
 window.addEventListener("resize", centerOnboarding);
 
-// ===== KEYBOARD NAVIGATION =====
+// KEYBOARD NAVIGATION 
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight" && currentStep < totalSteps - 1) {
     currentStep++;

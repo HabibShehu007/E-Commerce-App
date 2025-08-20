@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Mask phone number
+  //  Mask phone number
   const phone = sessionStorage.getItem("userPhone");
   const display = document.querySelector(".masked-number");
   if (phone && display && phone.length >= 13) {
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     display.textContent = `Code sent to your phone number`;
   }
 
-  // 2. OTP input navigation
+  //  OTP input navigation
   const otpInputs = document.querySelectorAll(".otp-input");
   otpInputs.forEach((input, index) => {
     input.addEventListener("input", () => {
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 3. OTP verification
+  //  OTP verification
   const OTP = "123456";
   const verifyBtn = document.querySelector(".submit-button");
   verifyBtn.addEventListener("click", () => {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 4. Resend code timer
+  //  Resend code timer
   const resendBtn = document.getElementById("resend-code");
   if (resendBtn) {
     resendBtn.innerHTML = 'Resend Code in <span id="timer">60</span>s';
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 5. Success Continue Button with fade
+  //  Success Continue Button with fade
   const closeBtn = document.getElementById("otp-close-btn");
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
@@ -94,7 +94,7 @@ function startCountdown(duration, display, button) {
   }, 1000);
 }
 
-// ✅ Unified Success Modal
+//  Unified Success Modal
 function showModal(type) {
   const modal = document.getElementById("otp-feedback-modal");
   const icon = document.getElementById("otp-feedback-icon");
@@ -117,7 +117,7 @@ function showModal(type) {
   modal.style.display = "flex";
 }
 
-// ❌ Error Modal with Retry Button
+//  Error Modal with Retry Button
 function showErrorModal() {
   const modal = document.getElementById("otp-feedback-modal");
   const icon = document.getElementById("otp-feedback-icon");
@@ -139,7 +139,7 @@ function showErrorModal() {
   modal.style.display = "flex";
 }
 
-// 📢 Toast notification
+//  Toast notification
 function showToast(msg) {
   const toast = document.getElementById("otp-toast");
   toast.textContent = msg;

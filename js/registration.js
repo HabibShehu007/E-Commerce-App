@@ -1,4 +1,4 @@
-// ===== Update Country Flag Image & Code Automatically =====
+//  Update Country Flag Image & Code Automatically 
 document.getElementById("country-code").addEventListener("change", function () {
     const selectedOption = this.options[this.selectedIndex];
     const selectedFlag = document.getElementById("selected-flag");
@@ -10,7 +10,7 @@ document.getElementById("country-code").addEventListener("change", function () {
     document.getElementById("phone").value = selectedOption.value + " ";
 });
 
-// ===== Fix Password Toggle Visibility =====
+//  Fix Password Toggle Visibility 
 document.querySelectorAll(".password-toggle").forEach(toggle => {
     toggle.addEventListener("click", function () {
         const input = this.parentElement.querySelector("input[type='password']");
@@ -24,12 +24,12 @@ document.querySelectorAll(".password-toggle").forEach(toggle => {
     });
 });
 
-// ===== Smooth Page Landing Animation =====
+//  Smooth Page Landing Animation
 document.addEventListener("DOMContentLoaded", () => {
     document.body.style.opacity = "1";
 });
 
-// ===== Basic Form Validation & Show Modal After Submission =====
+// Basic Form Validation & Show Modal After Submission 
 document.getElementById("registration-form").addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent default submission
     
@@ -60,36 +60,36 @@ document.getElementById("registration-form").addEventListener("submit", function
         return;
     }
 
-    // ✅ Store user data for verification
+    // Store user data for verification
     sessionStorage.setItem("userEmail", email);
     sessionStorage.setItem("userPhone", phone);
 
-    // ✅ Store email in localStorage for Apple/Google buttons
+    //  Store email in localStorage for Apple/Google buttons
     localStorage.setItem("registeredEmail", email);
 
-    // ✅ Show verification modal
+    // Show verification modal
     const modal = document.getElementById("verification-modal");
-    modal.classList.add("active"); // Show modal with animation
-    document.body.classList.add("modal-active"); // Apply focus mode
-    modal.style.pointerEvents = "auto"; // Ensure modal remains clickable
+    modal.classList.add("active"); 
+    document.body.classList.add("modal-active");
+    modal.style.pointerEvents = "auto"; 
 });
 
-// ===== Prevent Modal from Closing Automatically =====
+//  Prevent Modal from Closing Automatically 
 document.getElementById("verification-modal").addEventListener("click", function (event) {
     event.stopPropagation(); // Prevent unintended dismissals
 });
 
-// ===== Handle Verification Method Selection & Redirect to Correct Page =====
+//  Handle Verification Method Selection & Redirect to Correct Page 
 document.getElementById("verify-phone").addEventListener("click", function () {
     sessionStorage.setItem("verificationType", "phone"); // Store user's choice
-    setTimeout(() => document.body.classList.remove("modal-active"), 500); // Smoothly remove focus effect
-    window.location.href = "verifyphone.html"; // ✅ FIXED PATH!
+    setTimeout(() => document.body.classList.remove("modal-active"), 500); 
+    window.location.href = "verifyphone.html"; // !
 });
 
 document.getElementById("verify-email").addEventListener("click", function () {
-    sessionStorage.setItem("verificationType", "email"); // Store user's choice
-    setTimeout(() => document.body.classList.remove("modal-active"), 500); // Smoothly remove focus effect
-    window.location.href = "verifyemail.html"; // ✅ FIXED PATH!
+    sessionStorage.setItem("verificationType", "email"); // 
+    setTimeout(() => document.body.classList.remove("modal-active"), 500); // 
+    window.location.href = "verifyemail.html"; 
 });
 
 const confirmModal = document.getElementById("confirmationModal");
