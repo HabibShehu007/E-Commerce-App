@@ -1,1 +1,8 @@
 This is a project Drafted from a Well designed figma project
+
+links in headers
+1. home
+2. my orders
+3. profile
+4. settings
+5. logout

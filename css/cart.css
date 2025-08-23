@@ -1,0 +1,120 @@
+.cart-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s ease;
+}
+
+.cart-modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.cart-content {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  font-family: "Segoe UI", sans-serif;
+  color: #1c1c1c;
+  position: relative;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.cart-content h3 {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 24px;
+  color: #2c3e50;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.cart-item span {
+  font-size: 15px;
+  color: #444;
+  flex: 1;
+}
+
+.close-cart {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+
+.cart-summary {
+  background-color: #f4f6f8;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cart-summary p {
+  font-size: 15px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.cart-summary select,
+.cart-summary input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.cart-summary input:focus,
+.cart-summary select:focus {
+  border-color: #0078d4;
+  outline: none;
+}
+
+.checkout-btn {
+  background-color: #0078d4;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 16px;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.checkout-btn:hover {
+  background-color: #005ea2;
+}
