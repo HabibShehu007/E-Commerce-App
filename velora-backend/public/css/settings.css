@@ -1,0 +1,136 @@
+/* Base Reset & Typography */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+/* Dashboard Container */
+.settings-dashboard {
+  max-width: 960px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+.settings-dashboard h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 40px;
+}
+
+/* Grid Layout */
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* Card Styling */
+.settings-card {
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.settings-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.settings-card button {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Card Content */
+.settings-card h3 {
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.settings-card p {
+  margin-top: 8px;
+  font-size: 15px;
+  color: #64748b;
+}
+
+/* Icon Styling */
+.icon {
+  font-size: 34px;
+  padding: 14px;
+  border-radius: 50%;
+  color: #ffffff;
+  display: inline-block;
+}
+
+/* Icon Themes */
+.icon.email        { background-color: #3b82f6; }
+.icon.location     { background-color: #10b981; }
+.icon.password     { background-color: #f59e0b; }
+.icon.preferences  { background-color: #6366f1; }
+.icon.notifications{ background-color: #ec4899; }
+.icon.account      { background-color: #ef4444; }
+
+/* Danger Card */
+.settings-card.danger {
+  border: 2px solid #ef4444;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 600px) {
+  .settings-dashboard {
+    padding: 16px;
+  }
+
+  .settings-card {
+    padding: 20px;
+  }
+
+  .settings-card h3 {
+    font-size: 18px;
+  }
+
+  .settings-card p {
+    font-size: 14px;
+  }
+
+  .icon {
+    font-size: 30px;
+    padding: 12px;
+  }
+}
+
+.feedback {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #fff;
+  z-index: 9999;
+  animation: fadeInOut 4s ease;
+}
+
+.feedback.success { background-color: #10b981; }
+.feedback.error   { background-color: #ef4444; }
+.feedback.info    { background-color: #3b82f6; }
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}

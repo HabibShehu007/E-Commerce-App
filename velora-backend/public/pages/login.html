@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velora Login</title>
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+  <div class="login-container">
+  <h2>Welcome Back</h2>
+  <form id="loginForm">
+    <input type="email" id="username" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+  </form>
+
+  <!-- Feedback messages go here -->
+  <div class="loader hidden"></div>
+  <p id="successMsg"></p>
+  <p id="errorMsg"></p>
+
+  <p class="signup-link">Don't have an account? <a href="/pages/registration.html">Sign up</a></p>
+</div>
+
+
+  <script src="/js/login.js"></script>
+</body>
+</html>

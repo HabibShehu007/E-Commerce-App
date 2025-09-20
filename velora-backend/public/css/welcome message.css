@@ -1,0 +1,60 @@
+/* 👋 Welcome Message Container */
+.welcome-message {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #facc15;
+  text-align: center;
+  padding: 60px 24px;
+  border-radius: 14px;
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* 🧠 Welcome Title */
+.welcome-message h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+
+/* 📝 Welcome Description */
+.welcome-message p {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: #e2e8f0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* 🎬 Fade-In Animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 Responsive Tweaks */
+@media (max-width: 768px) {
+  .welcome-message {
+    padding: 40px 16px;
+    margin: 30px auto;
+  }
+
+  .welcome-message h2 {
+    font-size: 2rem;
+  }
+
+  .welcome-message p {
+    font-size: 1rem;
+  }
+}

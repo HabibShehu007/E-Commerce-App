@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/settings.css" />
+  <link rel="stylesheet" href="../css/settings-modal.css" />
+  <link rel="stylesheet" href="../fontawesome-free-7.0.0-web/fontawesome-free-7.0.0-web/css/all.min.css"/>
+
+  <!-- Scripts -->
+  <script src="../js/header.js" defer></script>
+  <script src="../js/settings.js" defer></script>
+  <script src="../js/settings-modal.js" defer></script>
+</head>
+<body>
+
+  <main class="settings-dashboard">
+    <header>
+      <h2>⚙️ Settings</h2>
+    </header>
+
+    <section class="settings-grid">
+
+      <!-- Settings Cards -->
+      <article class="settings-card" data-action="updateEmail" id="card-email">
+        <button type="button" onclick="openModal('email')" aria-label="Update Email">
+          <i class="fas fa-envelope icon email"></i>
+          <h3>Update Email</h3>
+          <p>Change your login or contact email</p>
+        </button>
+      </article>
+
+      <article class="settings-card" data-action="updateLocation" id="card-location">
+        <button type="button" onclick="openModal('location')" aria-label="Update Location">
+          <i class="fas fa-map-marker-alt icon location"></i>
+          <h3>Update Location</h3>
+          <p>Pin your delivery address on the map</p>
+        </button>
+      </article>
+
+      <article class="settings-card" data-action="changePassword" id="card-password">
+        <button type="button" onclick="openModal('password')" aria-label="Change Password">
+          <i class="fas fa-lock icon password"></i>
+          <h3>Change Password</h3>
+          <p>Secure your account with a new password</p>
+        </button>
+      </article>
+
+      <article class="settings-card" data-action="setPreferences" id="card-preferences">
+        <button type="button" onclick="openModal('preferences')" aria-label="Preferences">
+          <i class="fas fa-sliders-h icon preferences"></i>
+          <h3>Preferences</h3>
+          <p>Language, theme, and accessibility</p>
+        </button>
+      </article>
+
+      <article class="settings-card" data-action="manageNotifications" id="card-notifications">
+        <button type="button" onclick="openModal('notifications')" aria-label="Notifications">
+          <i class="fas fa-bell icon notifications"></i>
+          <h3>Notifications</h3>
+          <p>Manage email and SMS alerts</p>
+        </button>
+      </article>
+
+      <article class="settings-card danger" data-action="accountActions" id="card-account">
+        <button type="button" onclick="openModal('account')" aria-label="Account Actions">
+          <i class="fas fa-user-slash icon account"></i>
+          <h3>Account Actions</h3>
+          <p>Logout or delete your account</p>
+        </button>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- Modals Section -->
+  <section class="modals">
+
+    <!-- Email Modal -->
+    <div id="modal-email" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('email')">&times;</span>
+        <h2>Update Email</h2>
+        <form id="form-email">
+          <input type="email" placeholder="New email" required />
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Location Modal (UI only) -->
+    <div id="modal-location" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('location')">&times;</span>
+        <h2>Update Location</h2>
+        <p>This feature is UI-only for now.</p>
+      </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="modal-password" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('password')">&times;</span>
+        <h2>Change Password</h2>
+        <form id="form-password">
+          <input type="password" placeholder="New password" required />
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Preferences Modal (UI only) -->
+    <div id="modal-preferences" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('preferences')">&times;</span>
+        <h2>Preferences</h2>
+        <p>This feature is UI-only for now.</p>
+      </div>
+    </div>
+
+    <!-- Notifications Modal (UI only) -->
+    <div id="modal-notifications" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('notifications')">&times;</span>
+        <h2>Notifications</h2>
+        <p>This feature is UI-only for now.</p>
+      </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div id="modal-account" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('account')">&times;</span>
+        <h2>Account Actions</h2>
+        <form id="form-account">
+          <button type="submit" class="logout-btn">Logout</button>
+          <button type="submit" class="delete-btn">Delete Account</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+
+</body>
+</html>

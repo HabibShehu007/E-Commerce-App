@@ -1,0 +1,132 @@
+/* 🛒 Cart Modal Overlay */
+.cart-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
+
+.cart-modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* 📦 Cart Content Box */
+.cart-content {
+  background: linear-gradient(135deg, #ffffff, #f0f4ff);
+  padding: 40px 32px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.3);
+  font-family: "Segoe UI", sans-serif;
+  color: #1c1c1c;
+  position: relative;
+  animation: slideUp 0.4s ease;
+  border: 1px solid #dfe6f2;
+}
+
+/* 🎬 Slide Animation */
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* 🧾 Cart Header */
+.cart-content h3 {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 28px;
+  color: #1f2d3d;
+}
+
+/* 🧺 Cart Item Row */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e3e8ee;
+}
+
+.cart-item img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-item span {
+  font-size: 16px;
+  color: #444;
+  flex: 1;
+}
+
+/* ❌ Close Button */
+.close-cart {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-cart:hover {
+  color: #333;
+}
+
+/* 📊 Cart Summary Section */
+.cart-summary {
+  background: linear-gradient(to right, #f9fbff, #eef2f7);
+  padding: 24px;
+  border-radius: 14px;
+  margin-top: 28px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* 🧾 Form Inputs */
+.cart-summary select,
+.cart-summary input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid #ccd5e0;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #fff;
+  transition: border-color 0.2s ease;
+}
+
+.cart-summary input:focus,
+.cart-summary select:focus {
+  border-color: #0078d4;
+  outline: none;
+}
+
+/* 💳 Checkout Button */
+.checkout-btn {
+  background: linear-gradient(to right, #0078d4, #005ea2);
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.checkout-btn:hover {
+  background: linear-gradient(to right, #005ea2, #004080);
+  transform: scale(1.03);
+}

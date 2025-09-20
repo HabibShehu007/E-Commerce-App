@@ -1,0 +1,171 @@
+/* === BASE RESET & THEME === */
+:root {
+  --primary: #8BC34A;
+  --text-dark: #1A1A1A;
+  --text-light: #666;
+  --border: #ccc;
+  --bg-white: #fff;
+  --bg-gray: #f0f4f8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* === LOGIN CONTAINER === */
+.login-container {
+  background: var(--bg-white);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* === HEADINGS === */
+.login-container h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-dark);
+}
+
+.login-container p {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 25px;
+}
+
+/* === FORM === */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+input[type="email"],
+input[type="password"] {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  background: var(--bg-white);
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* === LOGIN BUTTON === */
+button[type="submit"] {
+  background-color: var(--primary);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #7CB342;
+}
+
+/* === ERROR MESSAGE === */
+#errorMsg {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 30px 20px;
+    border-radius: 8px;
+  }
+
+  .login-container h2 {
+    font-size: 22px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  button[type="submit"] {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* === SIGNUP LINK === */
+.signup-link {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.signup-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* === UTILITY CLASSES === */
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* === LOADER (if needed) === */
+.loader {
+  border: 4px solid var(--bg-gray);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* === SUCCESS MESSAGE === */
+#successMsg {
+  color: green;
+  font-size: 14px;
+  margin-top: 10px;
+}

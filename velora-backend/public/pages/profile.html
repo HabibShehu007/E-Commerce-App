@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile - Velora</title>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="../fontawesome-free-7.0.0-web/fontawesome-free-7.0.0-web/css/all.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/profile.css" />
+
+  <!-- Header Script -->
+  <script src="../js/header.js" defer></script>
+  <!-- Profile Script -->
+  <script src="../js/profile.js" defer></script>
+</head>
+<body>
+
+  <main>
+    <section class="profile-card">
+      <h2><i class="fas fa-id-badge"></i> User Profile</h2>
+
+      <div class="avatar-wrapper">
+        <img id="user-avatar" src="../images/avatar.webp" alt="User Avatar" class="avatar" />
+      </div>
+
+      <div class="card-item">
+        <i class="fas fa-user"></i>
+        <span><strong>Username:</strong> <span id="profile-username">Loading...</span></span>
+      </div>
+
+      <div class="card-item">
+        <i class="fas fa-signature"></i>
+        <span><strong>Full Name:</strong> <span id="profile-fullname">Loading...</span></span>
+      </div>
+
+      <div class="card-item">
+        <i class="fas fa-envelope"></i>
+        <span><strong>Email:</strong> <span id="profile-email">Loading...</span></span>
+      </div>
+
+      <div class="card-item">
+        <i class="fas fa-phone"></i>
+        <span><strong>Phone:</strong> <span id="profile-phone">Loading...</span></span>
+      </div>
+
+      <p class="edit-note">
+        <i class="fas fa-pen"></i> To update your info, visit <a href="settings.html">Settings</a>.
+      </p>
+    </section>
+  </main>
+
+</body>
+</html>

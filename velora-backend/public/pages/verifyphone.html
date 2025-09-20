@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phone Verification</title>
+  <link rel="icon" href="../images/phone.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/verifyphone.css" />
+  <link rel="stylesheet" href="../css/verify-responsive.css" />
+</head>
+<body>
+
+  <!-- Verification Container -->
+  <main class="verification-container">
+    <div class="verification-card">
+      <h1>Phone Verification</h1>
+      <p class="masked-number">Verification code sent to your number</p>
+
+      <!-- OTP Form -->
+      <form id="verify-form" method="POST" novalidate>
+        <!-- OTP Input Section -->
+        <div class="otp-input-container">
+          <input type="tel" inputmode="numeric" maxlength="1" class="otp-input" required />
+          <input type="tel" inputmode="numeric" maxlength="1" class="otp-input" required />
+          <input type="tel" inputmode="numeric" maxlength="1" class="otp-input" required />
+          <input type="tel" inputmode="numeric" maxlength="1" class="otp-input" required />
+          <input type="tel" inputmode="numeric" maxlength="1" class="otp-input" required />
+          <input type="tel" inputmode="numeric" maxlength="1" class="otp-input" required />
+        </div>
+
+        <!-- Timer & Resend Button -->
+        <button type="button" id="resend-code" class="resend-btn">
+          Resend Code in <span id="timer">60</span>s
+        </button>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-button">Verify OTP</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Feedback Modal -->
+  <div id="otp-feedback-modal" class="otp-modal">
+    <div class="otp-modal-content">
+      <div id="otp-feedback-icon">🎉</div>
+      <h2 id="otp-feedback-title">Verified!</h2>
+      <p id="otp-feedback-message">Your phone number has been successfully verified.</p>
+      <button id="otp-close-btn">Continue</button>
+      <div id="otp-loader" class="otp-spinner"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="otp-toast" class="otp-toast">OTP re-sent!</div>
+
+  <script src="../js/verifyphone.js"></script>
+</body>
+</html>

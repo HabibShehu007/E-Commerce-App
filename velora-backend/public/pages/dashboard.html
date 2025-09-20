@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velora | Dashboard</title>
+
+  <!-- Core Styles -->
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/product.css" />
+  <link rel="stylesheet" href="../css/cart.css" />
+  <link rel="stylesheet" href="../css/external.css" />
+  <link rel="stylesheet" href="../css/welcome message.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../fontawesome-free-7.0.0-web/fontawesome-free-7.0.0-web/css/all.min.css" />
+</head>
+<body>
+
+  <!-- 👋 Welcome Message -->
+<header class="welcome-message">
+  <h2 id="welcomeMessage">Welcome back 👋</h2>
+  <p>
+    Discover your favorite styles, explore new trends, and shop with confidence.
+    Your wardrobe upgrade starts here.
+  </p>
+</header>
+
+
+  <!-- 🗂️ Category Section -->
+  <section id="categorySection" class="categories">
+    <h3>Select a Category</h3>
+    <div class="category-grid">
+      <!-- Categories will be injected dynamically -->
+    </div>
+  </section>
+
+  <!-- 🛍️ Product Grid -->
+  <section id="productGrid" class="product-grid-section">
+    <!-- Products will be dynamically loaded here -->
+  </section>
+
+  <!-- 🔄 Load More Button -->
+  <div class="load-more-container">
+    <button id="loadMoreBtn" class="load-more-btn" style="display: none;">Load More</button>
+  </div>
+
+  <!-- 🛒 Cart Modal -->
+  <div id="cartModal" class="cart-modal hidden">
+    <div class="cart-content">
+      <span class="close-cart" onclick="toggleCartModal(false)">×</span>
+      <h3>Your Cart</h3>
+
+      <div id="cartItems"></div>
+
+      <div id="cartSummary" class="cart-summary">
+        <hr />
+        <p><strong>Total Items:</strong> <span id="totalItems">0</span></p>
+        <p><strong>Total Amount:</strong> ₦<span id="totalAmount">0</span></p>
+
+        <p><strong>Bank:</strong>
+          <select id="bankSelect">
+            <option value="">Select Bank</option>
+            <option value="GTBank">GTBank</option>
+            <option value="Access Bank">Access Bank</option>
+            <option value="UBA">UBA</option>
+            <option value="Zenith Bank">Zenith Bank</option>
+          </select>
+        </p>
+
+        <p><strong>Card Number:</strong> <input type="text" id="cardNumber" maxlength="16" /></p>
+        <p><strong>Expiry:</strong> <input type="text" id="expiry" placeholder="MM/YY" /></p>
+        <p><strong>CVV:</strong> <input type="text" id="cvv" maxlength="3" /></p>
+      </div>
+
+      <button class="checkout-btn" onclick="checkout()">Proceed to Payment</button>
+    </div>
+  </div>
+
+  <!-- ⏳ Global Loader -->
+  <div id="loader" class="loader-overlay hidden">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- 📜 Scripts -->
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/product.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/welcome-message.js"></script>
+</body>
+</html>

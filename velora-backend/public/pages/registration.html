@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velora | Sign Up</title>
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/registration.css" />
+</head>
+<body>
+  <main class="registration-container">
+    <div class="registration-card" style="opacity: 1;">
+      <h1>Create Your Account</h1>
+      <p class="subtext">Join Velora for exclusive fashion deals</p>
+
+      <form id="registration-form" novalidate>
+        <!-- Full Name -->
+        <div class="input-group">
+          <input type="text" id="full-name" name="fullName" placeholder=" " required autocomplete="name" />
+          <label for="full-name">Full Name</label>
+        </div>
+
+        <!-- Phone Input -->
+        <div class="input-group phone-group">
+          <img id="selected-flag" src="https://flagcdn.com/w40/ng.png" alt="Country Flag" class="country-flag" />
+          <select id="country-code" name="countryCode">
+            <option value="+234" data-flag="https://flagcdn.com/w40/ng.png">NG+234</option>
+            <option value="+27" data-flag="https://flagcdn.com/w40/za.png">ZA+27</option>
+            <option value="+233" data-flag="https://flagcdn.com/w40/gh.png">GH+233</option>
+          </select>
+          <input type="tel" id="phone" name="phoneRaw" placeholder="Phone Number" required autocomplete="tel" />
+        </div>
+
+        <!-- Username -->
+        <div class="input-group">
+          <input type="text" id="username" name="username" placeholder=" " required autocomplete="username" />
+          <label for="username">Username</label>
+        </div>
+
+        <!-- Email -->
+        <div class="input-group">
+          <input type="email" id="email" name="email" placeholder=" " required autocomplete="email" />
+          <label for="email">Email Address</label>
+        </div>
+
+        <!-- Password -->
+        <div class="input-group">
+          <input type="password" id="password" name="password" placeholder=" " required minlength="8" autocomplete="new-password" />
+          <label for="password">Password</label>
+          <button type="button" class="password-toggle" title="Show password"><i class="fa fa-eye"></i></button>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="input-group">
+          <input type="password" id="confirm-password" name="confirmPassword" placeholder=" " required minlength="8" autocomplete="new-password" />
+          <label for="confirm-password">Confirm Password</label>
+          <button type="button" class="password-toggle" title="Show password"><i class="fa fa-eye"></i></button>
+        </div>
+
+        <!-- Terms Checkbox -->
+        <div class="checkbox-group">
+          <input type="checkbox" id="terms" name="termsAccepted" required />
+          <label for="terms">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a></label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="submit-button">Continue</button>
+      </form>
+
+      <!-- Already have an account -->
+      <div class="login-redirect">
+        <p>Already have an account? <a href="/pages/login.html">Log in here</a></p>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/registration.js"></script>
+</body>
+</html>
