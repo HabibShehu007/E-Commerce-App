@@ -13,38 +13,10 @@ const ProductModule = (() => {
         }
       });
       const data = await res.json();
-      return data.ordered || [];
+      return Array.isArray(data.ordered) ? data.ordered : [];
     } catch (err) {
       console.error("Failed to fetch ordered products:", err);
       return [];
-    }
-  }
-
-  async function placeOrder(productId, card) {
-    const token = localStorage.getItem("token");
-    if (!token) return alert("Please log in to place an order.");
-
-    try {
-      const res = await fetch("http://localhost:5000/api/orders/place", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ productName: productId })
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        alert("Order placed successfully!");
-        card.classList.add("disabled");
-        card.innerHTML += `<span class="sold-out">Sold Out</span>`;
-      } else {
-        alert(data.message);
-      }
-    } catch (err) {
-      console.error("Order failed:", err);
-      alert("Something went wrong.");
     }
   }
 
@@ -102,7 +74,7 @@ const ProductModule = (() => {
     const batchSize = 8;
     const slice = currentProducts.slice(currentIndex, currentIndex + batchSize);
     const ordered = await getOrderedProducts();
-    console.log("Ordered products:", ordered);
+    console.log("Ordered products from backend:", ordered);
 
     slice.forEach(product => {
       const card = document.createElement("div");
@@ -110,23 +82,24 @@ const ProductModule = (() => {
 
       const nairaPrice = product.price.toLocaleString();
       const isOrdered = ordered.includes(product.id);
-      const banner = isOrdered ? `<span class="sold-out">Sold Out</span>` : '';
-      const disabledClass = isOrdered ? 'disabled' : '';
 
-      if (disabledClass) card.classList.add(disabledClass); // ✅ FIXED: only add if not empty
+      console.log(`Rendering ${product.id} → Ordered: ${isOrdered}`);
+
       card.setAttribute("data-id", product.id);
 
       card.innerHTML = `
         <img src="${product.image}" alt="${product.name}" loading="lazy" />
         <h4>${product.name}</h4>
         <p>₦${nairaPrice}</p>
-        ${banner}
+        ${isOrdered ? `<span class="sold-out">Sold Out</span>` : ""}
         <button ${isOrdered ? "disabled" : ""}>${isOrdered ? "Ordered" : "Add to Cart"}</button>
       `;
 
-      const button = card.querySelector("button");
-      if (!isOrdered) {
-        button.onclick = () => placeOrder(product.id, card);
+      if (isOrdered) {
+        card.classList.add("disabled");
+      } else {
+        const button = card.querySelector("button");
+        button.onclick = () => openCartModal(product.id); // ✅ Trigger modal
       }
 
       container.appendChild(card);
@@ -152,5 +125,5 @@ const ProductModule = (() => {
     threshold: 0.2
   });
 
-  return { displayProducts };
+  return { displayProducts, getOrderedProducts };
 })();

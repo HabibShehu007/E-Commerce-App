@@ -1,13 +1,17 @@
 window.onload = function () {
-  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  const currentUser = localStorage.getItem("username") || "guest";
+  const allOrders = JSON.parse(localStorage.getItem("orders")) || [];
+  const userOrders = allOrders.filter(order => order.user === currentUser);
   const container = document.getElementById("ordersList");
 
-  if (orders.length === 0) {
+  if (userOrders.length === 0) {
     container.innerHTML = "<p>No orders yet. Go grab something stylish!</p>";
     return;
   }
 
-  orders.forEach(order => {
+  userOrders.forEach(order => {
+    const statusClass = order.status || "pending";
+
     const card = document.createElement("div");
     card.className = "order-card";
     card.innerHTML = `
@@ -15,7 +19,7 @@ window.onload = function () {
       <div class="order-details">
         <h3>${order.productName}</h3>
         <p><strong>Order ID:</strong> #${order.id}</p>
-        <p><strong>Status:</strong> <span class="status pending">${order.status}</span></p>
+        <p><strong>Status:</strong> <span class="status ${statusClass}">${statusClass}</span></p>
         <p><strong>Price:</strong> ${order.price}</p>
         <p><strong>Date:</strong> ${order.date}</p>
       </div>

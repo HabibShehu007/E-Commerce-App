@@ -44,17 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
       loader.classList.add("hidden");
 
       if (response.ok) {
-        // ✅ Store token under the correct key
+        // ✅ Store token and username
         if (result.token) {
-          localStorage.setItem("token", result.token); // changed from "authToken"
+          localStorage.setItem("token", result.token);
         }
 
-        // ✅ Store username for dashboard greeting
         if (result.username) {
-          localStorage.setItem("loggedInUser", result.username);
+          localStorage.setItem("username", result.username); // ✅ Consistent key
         }
 
-        successMsg.textContent = result.message || `Welcome back, ${email}`;
+        successMsg.textContent = result.message || `Welcome back, ${result.username}`;
         console.log("Redirecting to dashboard...");
         window.location.href = "/pages/dashboard.html";
       } else {

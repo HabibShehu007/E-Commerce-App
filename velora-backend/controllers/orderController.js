@@ -5,6 +5,7 @@ exports.placeOrder = async (req, res) => {
   const userId = req.user.id;
 
   try {
+    // 🔍 Check if user already ordered this product
     const [existing] = await db.query(
       "SELECT * FROM orders WHERE user_id = ? AND product_name = ?",
       [userId, productName]
@@ -13,13 +14,21 @@ exports.placeOrder = async (req, res) => {
       return res.status(400).json({ message: "You already ordered this item." });
     }
 
+    // 🔍 Check if product exists and has quantity
     const [product] = await db.query("SELECT quantity FROM products WHERE name = ?", [productName]);
-    if (product.length === 0 || product[0].quantity < 1) {
+
+    if (product.length === 0) {
+      return res.status(404).json({ message: "Product not found in database." });
+    }
+
+    if (product[0].quantity < 1) {
       return res.status(400).json({ message: "Product is sold out." });
     }
 
+    // 🛒 Update product quantity
     await db.query("UPDATE products SET quantity = quantity - 1 WHERE name = ?", [productName]);
 
+    // 🧾 Insert order
     await db.query(
       "INSERT INTO orders (user_id, product_name, quantity) VALUES (?, ?, ?)",
       [userId, productName, 1]

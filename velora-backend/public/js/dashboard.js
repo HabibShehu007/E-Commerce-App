@@ -1,22 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 🔐 Check if user is logged in
   const token = localStorage.getItem("token");
-  if (!token) {
+  const username = localStorage.getItem("username");
+
+  if (!token || !username) {
     alert("Session expired. Please log in again.");
-    window.location.href = "/pages/login.html"; // update path if needed
+    localStorage.clear();
+    window.location.href = "/pages/login.html";
     return;
   }
 
-  // 🚀 ScrollCue Initialization
-  if (window.scrollCue) {
-    scrollCue.init({
-      interval: 150,
-      duration: 300,
-      threshold: 0.25
-    });
+  // ✅ Show greeting
+  const greeting = document.getElementById("greeting");
+  if (greeting) {
+    greeting.textContent = `Welcome, ${username}`;
   }
 
-  // 🔁 Debounce ScrollCue Updates
+  // ✅ Logout button
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.onclick = () => {
+      localStorage.clear();
+      window.location.href = "/pages/login.html";
+    };
+  }
+
+  if (window.scrollCue) {
+    scrollCue.init({ interval: 150, duration: 300, threshold: 0.25 });
+  }
+
   const debounce = (fn, delay) => {
     let timer;
     return () => {
@@ -28,18 +39,97 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.scrollCue) scrollCue.update();
   }, 300);
 
-  // 🌐 DOM References
   const categoryGrid = document.querySelector(".category-grid");
   const categorySection = document.getElementById("categorySection");
   const productGrid = document.getElementById("productGrid");
   const loader = document.getElementById("loader");
   const loadMoreBtn = document.getElementById("loadMoreBtn");
 
-  // 💱 Currency Conversion
   const exchangeRate = 1500;
   window.convertToNaira = dollar => dollar * exchangeRate;
 
-  // 🗂️ Categories
+  let selectedProductId = null;
+
+  window.openCartModal = function (productId) {
+    selectedProductId = productId;
+    const modal = document.getElementById("cartModal");
+    if (!modal) {
+      console.error("❌ Modal not found: #cartModal");
+      return;
+    }
+    console.log("✅ Opening cart modal for:", productId);
+    modal.classList.add("show");
+  };
+
+  window.toggleCartModal = function (show) {
+    const modal = document.getElementById("cartModal");
+    if (!modal) {
+      console.error("❌ Modal not found: #cartModal");
+      return;
+    }
+    modal.classList.toggle("show", show);
+  };
+
+  window.checkout = async function () {
+    const cardNumber = document.getElementById("cardNumber").value.trim();
+    const expiry = document.getElementById("expiry").value.trim();
+    const cvv = document.getElementById("cvv").value.trim();
+    const bank = document.getElementById("bankSelect").value;
+
+    if (!cardNumber || !expiry || !cvv || !bank) {
+      alert("Please fill in all payment details.");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/orders/place", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ productName: selectedProductId })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("Payment successful! Order placed.");
+        toggleCartModal(false);
+
+        const card = document.querySelector(`[data-id="${selectedProductId}"]`);
+        if (card) {
+          card.classList.add("disabled");
+          card.innerHTML += `<span class="sold-out">Sold Out</span>`;
+          const button = card.querySelector("button");
+          if (button) button.disabled = true;
+
+          const order = {
+            id: Date.now(),
+            productName: selectedProductId,
+            productImage: card.querySelector("img").src,
+            price: card.querySelector("p").textContent,
+            status: "pending",
+            date: new Date().toLocaleDateString("en-NG", {
+              year: "numeric",
+              month: "short",
+              day: "numeric"
+            }),
+            user: username
+          };
+
+          const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+          existingOrders.push(order);
+          localStorage.setItem("orders", JSON.stringify(existingOrders));
+        }
+      } else {
+        alert(data.message || "Order failed.");
+      }
+    } catch (err) {
+      console.error("Checkout error:", err);
+      alert("Something went wrong.");
+    }
+  };
+
   const categories = [
     { name: "T-Shirts", image: "../images/categories/t-shirt.webp", folder: "tshirt", count: 20 },
     { name: "Caps", image: "../images/categories/cap.webp", folder: "caps", count: 20 },
@@ -54,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Jackets", image: "../images/categories/jacket.webp", folder: "jackets", count: 20 }
   ];
 
-  // 🧱 Render Category Cards
   categories.forEach(cat => {
     const card = document.createElement("div");
     card.classList.add("category-card");
@@ -93,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
     categoryGrid.appendChild(card);
   });
 
-  // 🔄 Utility Functions
   function showLoader() {
     if (loader) loader.style.display = "flex";
   }
