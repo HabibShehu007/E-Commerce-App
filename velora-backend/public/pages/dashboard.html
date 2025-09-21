@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Velora | Dashboard</title>
 
-  <!-- Core Styles -->
+  <!-- styles -->
   <link rel="stylesheet" href="../css/dashboard.css" />
   <link rel="stylesheet" href="../css/product.css" />
   <link rel="stylesheet" href="../css/cart.css" />
@@ -16,35 +16,34 @@
 </head>
 <body>
 
-  <!-- 👋 Welcome Message -->
-<header class="welcome-message">
-  <h2 id="welcomeMessage">Welcome back 👋</h2>
-  <p>
-    Discover your favorite styles, explore new trends, and shop with confidence.
-    Your wardrobe upgrade starts here.
-  </p>
-</header>
+  <!-- welcome -->
+  <header class="welcome-message">
+    <h2 id="welcomeMessage">Welcome back 👋</h2>
+    <p>
+      Discover your favorite styles, explore new trends, and shop with confidence.
+      Your wardrobe upgrade starts here.
+    </p>
+  </header>
 
-
-  <!-- 🗂️ Category Section -->
+  <!-- category -->
   <section id="categorySection" class="categories">
     <h3>Select a Category</h3>
     <div class="category-grid">
-      <!-- Categories will be injected dynamically -->
+      <!-- dynamic -->
     </div>
   </section>
 
-  <!-- 🛍️ Product Grid -->
+  <!-- products -->
   <section id="productGrid" class="product-grid-section">
-    <!-- Products will be dynamically loaded here -->
+    <!-- dynamic -->
   </section>
 
-  <!-- 🔄 Load More Button -->
+  <!-- load more -->
   <div class="load-more-container">
     <button id="loadMoreBtn" class="load-more-btn" style="display: none;">Load More</button>
   </div>
 
-  <!-- 🛒 Cart Modal -->
+  <!-- cart -->
   <div id="cartModal" class="cart-modal hidden">
     <div class="cart-content">
       <span class="close-cart" onclick="toggleCartModal(false)">×</span>
@@ -76,12 +75,12 @@
     </div>
   </div>
 
-  <!-- ⏳ Global Loader -->
+  <!-- loader -->
   <div id="loader" class="loader-overlay hidden">
     <div class="loader-spinner"></div>
   </div>
 
-  <!-- 📜 Scripts -->
+  <!-- scripts -->
   <script src="/js/dashboard.js"></script>
   <script src="/js/product.js"></script>
   <script src="/js/cart.js"></script>

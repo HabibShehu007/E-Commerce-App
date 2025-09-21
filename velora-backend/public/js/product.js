@@ -2,8 +2,53 @@ const ProductModule = (() => {
   let currentIndex = 0;
   let currentProducts = [];
 
-  // 🧠 Display Products by Category
-  function displayProducts(categoryFolder, displayName, count = 20) {
+  async function getOrderedProducts() {
+    const token = localStorage.getItem("token");
+    if (!token) return [];
+
+    try {
+      const res = await fetch("http://localhost:5000/api/orders/user", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const data = await res.json();
+      return data.ordered || [];
+    } catch (err) {
+      console.error("Failed to fetch ordered products:", err);
+      return [];
+    }
+  }
+
+  async function placeOrder(productId, card) {
+    const token = localStorage.getItem("token");
+    if (!token) return alert("Please log in to place an order.");
+
+    try {
+      const res = await fetch("http://localhost:5000/api/orders/place", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ productName: productId })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("Order placed successfully!");
+        card.classList.add("disabled");
+        card.innerHTML += `<span class="sold-out">Sold Out</span>`;
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error("Order failed:", err);
+      alert("Something went wrong.");
+    }
+  }
+
+  async function displayProducts(categoryFolder, displayName, count = 20) {
     currentIndex = 0;
     currentProducts = [];
 
@@ -20,7 +65,6 @@ const ProductModule = (() => {
       loadMoreBtn.onclick = () => renderNextBatch(container);
     }
 
-    // 🔠 Prefix Mapping
     const prefixMap = {
       caps: "cap",
       tshirt: "tshirt",
@@ -36,10 +80,9 @@ const ProductModule = (() => {
     };
     const prefix = prefixMap[categoryFolder] || categoryFolder;
 
-    // 🖼️ Generate Product List
     for (let i = 1; i <= count; i++) {
       const imgPath = `../images/product/${categoryFolder}/${prefix}${i}.webp`;
-      const price = Math.floor(Math.random() * (15000 - 3000 + 1)) + 3000; // 💸 Naira pricing
+      const price = Math.floor(Math.random() * (15000 - 3000 + 1)) + 3000;
       currentProducts.push({
         id: `${prefix}-${i}`,
         name: `${displayName} ${i}`,
@@ -48,36 +91,46 @@ const ProductModule = (() => {
       });
     }
 
-    renderNextBatch(container);
+    await renderNextBatch(container);
 
     if (loadMoreBtn && currentProducts.length > 6) {
       loadMoreBtn.style.display = "block";
     }
   }
 
-  // 🔄 Render Next Batch of Products
-  function renderNextBatch(container) {
+  async function renderNextBatch(container) {
     const batchSize = 8;
     const slice = currentProducts.slice(currentIndex, currentIndex + batchSize);
+    const ordered = await getOrderedProducts();
+    console.log("Ordered products:", ordered);
 
     slice.forEach(product => {
       const card = document.createElement("div");
       card.classList.add("product-card");
 
       const nairaPrice = product.price.toLocaleString();
+      const isOrdered = ordered.includes(product.id);
+      const banner = isOrdered ? `<span class="sold-out">Sold Out</span>` : '';
+      const disabledClass = isOrdered ? 'disabled' : '';
+
+      if (disabledClass) card.classList.add(disabledClass); // ✅ FIXED: only add if not empty
+      card.setAttribute("data-id", product.id);
 
       card.innerHTML = `
         <img src="${product.image}" alt="${product.name}" loading="lazy" />
         <h4>${product.name}</h4>
         <p>₦${nairaPrice}</p>
-        <button data-id="${product.id}">Add to Cart</button>
+        ${banner}
+        <button ${isOrdered ? "disabled" : ""}>${isOrdered ? "Ordered" : "Add to Cart"}</button>
       `;
 
       const button = card.querySelector("button");
-      button.onclick = () => addToCart(product);
+      if (!isOrdered) {
+        button.onclick = () => placeOrder(product.id, card);
+      }
 
       container.appendChild(card);
-      observer.observe(card); // 👀 Observe for scroll animation
+      observer.observe(card);
     });
 
     currentIndex += batchSize;
@@ -88,12 +141,11 @@ const ProductModule = (() => {
     }
   }
 
-  // ✨ Scroll Animation Observer
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        observer.unobserve(entry.target); // Optional: stop observing once visible
+        observer.unobserve(entry.target);
       }
     });
   }, {

@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // 🔐 Check if user is logged in
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Session expired. Please log in again.");
+    window.location.href = "/pages/login.html"; // update path if needed
+    return;
+  }
+
   // 🚀 ScrollCue Initialization
   if (window.scrollCue) {
     scrollCue.init({
@@ -33,9 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🗂️ Categories
   const categories = [
-    { name: "T-Shirts", image: "../images/categories/t-shirt.webp", folder: "tshirt", count: 15 },
-    { name: "Caps", image: "../images/categories/cap.webp", folder: "caps", count: 10 },
-    { name: "Trousers", image: "../images/categories/trouser.webp", folder: "trousers", count: 12 },
+    { name: "T-Shirts", image: "../images/categories/t-shirt.webp", folder: "tshirt", count: 20 },
+    { name: "Caps", image: "../images/categories/cap.webp", folder: "caps", count: 20 },
+    { name: "Trousers", image: "../images/categories/trouser.webp", folder: "trousers", count: 20 },
     { name: "Shoes", image: "../images/categories/shoe.webp", folder: "shoes", count: 20 },
     { name: "Wrist Watches", image: "../images/categories/watch.webp", folder: "watches", count: 20 },
     { name: "Sun Glasses", image: "../images/categories/Sunglass.webp", folder: "sunglasses", count: 20 },

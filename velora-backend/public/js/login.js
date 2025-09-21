@@ -44,15 +44,15 @@ document.addEventListener("DOMContentLoaded", () => {
       loader.classList.add("hidden");
 
       if (response.ok) {
-        // ✅ Store token in localStorage
+        // ✅ Store token under the correct key
         if (result.token) {
-          localStorage.setItem("authToken", result.token);
+          localStorage.setItem("token", result.token); // changed from "authToken"
         }
 
         // ✅ Store username for dashboard greeting
         if (result.username) {
-         localStorage.setItem("loggedInUser", result.username);
-       }
+          localStorage.setItem("loggedInUser", result.username);
+        }
 
         successMsg.textContent = result.message || `Welcome back, ${email}`;
         console.log("Redirecting to dashboard...");

@@ -18,9 +18,13 @@ app.use(express.static("public")); // Serve frontend assets like HTML, CSS, JS
 // ✅ Routes
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
+const orderRoutes = require("./routes/orderRoutes");
+
 
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/orders", orderRoutes);
+
 
 // ✅ Health Check
 app.get("/", (req, res) => {
