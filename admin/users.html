@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Users | Velora Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .table-container {
+      margin-top: 40px;
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark px-4">
+    <span class="navbar-brand">👥 User Management</span>
+    <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="container table-container">
+    <div class="admin-header">
+      <h3>Registered Users</h3>
+      <input type="text" id="searchInput" class="form-control w-25" placeholder="Search by name or email" />
+    </div>
+
+    <table class="table table-bordered table-hover mt-3">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Registered</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody">
+        <!-- User rows will be injected here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.clear();
+   //   window.location.href = "/pages/login.html";
+    }
+
+    // Optional: protect admin access
+    const adminToken = localStorage.getItem("adminToken");
+    if (!adminToken) {
+//  window.location.href = "/admin/login.html";
+    }
+
+    // Simulated user data (replace with fetch from backend later)
+    const users = [
+      { id: 1, username: "habib", email: "habib@velora.com", role: "admin", registered: "2025-09-01" },
+      { id: 2, username: "amina", email: "amina@velora.com", role: "user", registered: "2025-09-10" },
+      { id: 3, username: "joshua", email: "joshua@velora.com", role: "user", registered: "2025-09-15" }
+    ];
+
+    const tableBody = document.getElementById("userTableBody");
+
+    function renderUsers(list) {
+      tableBody.innerHTML = "";
+      list.forEach((user, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${user.username}</td>
+          <td>${user.email}</td>
+          <td>${user.role}</td>
+          <td>${user.registered}</td>
+          <td>
+            <button class="btn btn-sm btn-danger">Block</button>
+            <button class="btn btn-sm btn-secondary">Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    renderUsers(users);
+
+    // Search filter
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const filtered = users.filter(user =>
+        user.username.toLowerCase().includes(query) ||
+        user.email.toLowerCase().includes(query)
+      );
+      renderUsers(filtered);
+    });
+  </script>
+</body>
+</html>

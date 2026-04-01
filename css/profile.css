@@ -1,0 +1,95 @@
+/* 🌐 Base Styles */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(to bottom right, #f0f4f8, #e8ecf1);
+  margin: 0;
+  padding: 0;
+}
+
+/* 🧾 Profile Card Container */
+.profile-card {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* 🏷️ Title */
+.profile-card h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #0f172a;
+  margin-bottom: 30px;
+}
+
+/* 🧩 Card Items */
+.card-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 1.5rem;
+  color: #334155;
+}
+
+.card-item i {
+  font-size: 1.5rem;
+  color: #facc15;
+  min-width: 24px;
+}
+
+/* 🧼 Last Item Border Removal */
+.card-item:last-of-type {
+  border-bottom: none;
+}
+
+/* 🖊️ Edit Note */
+.edit-note {
+  margin-top: 25px;
+  font-size: 1.7rem;
+  color: #475569;
+  text-align: center;
+}
+
+.edit-note i {
+  margin-right: 6px;
+  color: #64748b;
+}
+
+.edit-note a {
+  color: #0f172a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.edit-note a:hover {
+  text-decoration: underline;
+}
+
+/* 🧑‍🎨 Avatar */
+.avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #facc15;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 🆕 Dynamic Field Styling (Optional) */
+#profile-username,
+#profile-fullname,
+#profile-email,
+#profile-phone {
+  font-weight: 500;
+  color: #0f172a;
+}

@@ -1,0 +1,337 @@
+/* === BASE & THEME === */
+:root {
+  --primary: #007bff;
+  --primary-dark: #0056b3;
+  --bg-light: #f9f9f9;
+  --bg-white: #ffffff;
+  --text: #1a1a1a;
+  --accent: #d9534f;
+  --input-border: #ccc;
+  --button: #8BC34A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* === CONTAINER STRUCTURE === */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.verification-container {
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* === CARD DESIGN === */
+.verification-card {
+  background: var(--bg-white);
+  padding: 40px 28px;
+  width: 100%;
+  max-width: 420px;
+  min-height: 480px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  animation: fadeInUp 0.5s ease forwards;
+  transform: translateY(20px);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@keyframes fadeInUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* === EMAIL INFO === */
+.masked-email {
+  font-size: 14px;
+  color: var(--button);
+  margin-top: 8px;
+  text-align: center;
+  word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  .masked-email {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+}
+
+/* === OTP INPUTS === */
+.otp-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  padding: 0 8px;
+  max-width: 320px;
+  box-sizing: border-box;
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+.otp-input.shake {
+  animation: shake 0.1s ease;
+}
+
+.otp-input {
+  width: 45px;
+  height: 60px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid var(--input-border);
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.otp-input:focus {
+  border-color: var(--button);
+  background-color: #f0f8ff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+/* === BUTTON STYLES === */
+.submit-button,
+.resend-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button {
+  background-color: var(--button);
+  color: #000000;
+  margin-top: 36px;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.25);
+}
+
+.submit-button:hover {
+  background-color: var(--button);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.35);
+}
+
+.submit-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+.resend-btn {
+  background: none;
+  color: var(--text);
+  font-weight: 500;
+  margin-top: 16px;
+  text-decoration: none;
+}
+
+.resend-btn:hover {
+  text-decoration: underline;
+}
+
+#timer {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--button);
+  margin-top: 12px;
+}
+
+/* === RESPONSIVE — TABLETS (≤768px) === */
+@media (max-width: 768px) {
+  .verification-card {
+    padding: 28px 20px;
+  }
+
+  .otp-input {
+    width: 44px;
+    height: 54px;
+    font-size: 20px;
+  }
+
+  .submit-button {
+    margin-top: 32px;
+    font-size: 15px;
+    height: auto;
+  }
+
+  .resend-btn {
+    font-size: 14px;
+  }
+}
+
+/* === SMALL SCREENS (≤480px) === */
+@media (max-width: 480px) {
+  body {
+    padding-top: 24px;
+  }
+
+  .verification-card {
+    padding: 24px 16px;
+  }
+
+  .otp-input {
+    width: 42px;
+    height: 52px;
+    font-size: 18px;
+  }
+
+  .submit-button {
+    font-size: 15px;
+    padding: 12px;
+    margin-top: 28px;
+  }
+
+  #timer {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+}
+
+/* === COMPACT SCREENS (≤360px) === */
+@media (max-width: 360px) {
+
+  .verification-card{
+    padding: 20px 9px;
+  }
+
+  .otp-input {
+    width: 38px;
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .otp-input-container {
+    padding: 0 4px;
+    gap: 5px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  .otp-modal-content {
+    padding: 24px 16px;
+    font-size: 15px;
+  }
+}
+
+/* === Modal Styling === */
+.otp-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.otp-modal-content {
+  background: #fff;
+  max-width: 90%;
+  width: 100%;
+  padding: 32px 20px;
+  border-radius: 12px;
+  text-align: center;
+  animation: popIn 0.1s ease-in-out;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+#otp-feedback-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+#otp-close-btn {
+  margin-top: 24px;
+  padding: 12px 20px;
+  background: var(--button);
+  border: none;
+  color: #000000;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* === Toast Notification === */
+.otp-toast {
+  position: fixed;
+  bottom: 40px;
+  right: 24px;
+  background: var(--primary);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease;
+  z-index: 999;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.otp-toast.show {
+  opacity: 1;
+  transform: translateY(-10px);
+}
+
+.otp-spinner {
+  width: 50px;
+  height: 50px;
+  border: 7px solid #ccc;
+  border-top-color: #28a745;
+  border-radius: 50%;
+  margin: 1rem auto;
+  animation: spinFast 0.4s linear infinite;
+}
+
+@keyframes spinFast {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+
