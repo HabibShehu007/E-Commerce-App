@@ -1,5 +1,5 @@
 # Ignore node_modules inside velora-backend
-velora-backend/node_modules/
+node_modules
 
 # Ignore .env file inside velora-backend
 velora-backend/.env
