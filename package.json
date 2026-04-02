@@ -13,6 +13,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.90.1",
     "@tailwindcss/cli": "^4.1.18",
+    "firebase": "^12.11.0",
     "tailwindcss": "^4.1.18"
   }
 }

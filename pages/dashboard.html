@@ -1,90 +1,237 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Velora | Dashboard</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Velora | Dashboard</title>
 
-  <!-- styles -->
-  <link rel="stylesheet" href="../css/dashboard.css" />
-  <link rel="stylesheet" href="../css/product.css" />
-  <link rel="stylesheet" href="../css/cart.css" />
-  <link rel="stylesheet" href="../css/external.css" />
-  <link rel="stylesheet" href="../css/welcome message.css" />
-  <link rel="stylesheet" href="../css/header.css" />
-  <link rel="stylesheet" href="../fontawesome-free-7.0.0-web/fontawesome-free-7.0.0-web/css/all.min.css" />
-</head>
-<body>
+    <!-- existing linked styles remain -->
 
-  <!-- welcome -->
-  <header class="welcome-message">
-    <h2 id="welcomeMessage">Welcome back 👋</h2>
-    <p>
-      Discover your favorite styles, explore new trends, and shop with confidence.
-      Your wardrobe upgrade starts here.
-    </p>
-  </header>
+    <link rel="stylesheet" href="../css/cart.css" />
+    <link rel="stylesheet" href="../css/external.css" />
 
-  <!-- category -->
-  <section id="categorySection" class="categories">
-    <h3>Select a Category</h3>
-    <div class="category-grid">
-      <!-- dynamic -->
-    </div>
-  </section>
+    <link rel="stylesheet" href="/src/output.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="font-[Segoe_UI] bg-gradient-to-br from-[#f0f4f8] to-[#e8ecf1] text-[#333] leading-relaxed p-5"
+  >
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 w-full bg-blue-950 shadow-md z-50">
+      <div class="flex items-center justify-between px-4 py-3">
+        <!-- Logo -->
+        <div class="text-xl font-bold text-[#f4ff21]">Velora</div>
 
-  <!-- products -->
-  <section id="productGrid" class="product-grid-section">
-    <!-- dynamic -->
-  </section>
-
-  <!-- load more -->
-  <div class="load-more-container">
-    <button id="loadMoreBtn" class="load-more-btn" style="display: none;">Load More</button>
-  </div>
-
-  <!-- cart -->
-  <div id="cartModal" class="cart-modal hidden">
-    <div class="cart-content">
-      <span class="close-cart" onclick="toggleCartModal(false)">×</span>
-      <h3>Your Cart</h3>
-
-      <div id="cartItems"></div>
-
-      <div id="cartSummary" class="cart-summary">
-        <hr />
-        <p><strong>Total Items:</strong> <span id="totalItems">0</span></p>
-        <p><strong>Total Amount:</strong> ₦<span id="totalAmount">0</span></p>
-
-        <p><strong>Bank:</strong>
-          <select id="bankSelect">
-            <option value="">Select Bank</option>
-            <option value="GTBank">GTBank</option>
-            <option value="Access Bank">Access Bank</option>
-            <option value="UBA">UBA</option>
-            <option value="Zenith Bank">Zenith Bank</option>
-          </select>
-        </p>
-
-        <p><strong>Card Number:</strong> <input type="text" id="cardNumber" maxlength="16" /></p>
-        <p><strong>Expiry:</strong> <input type="text" id="expiry" placeholder="MM/YY" /></p>
-        <p><strong>CVV:</strong> <input type="text" id="cvv" maxlength="3" /></p>
+        <!-- Hamburger -->
+        <button
+          id="menuBtn"
+          class="text-2xl text-yellow-300 focus:outline-none"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
+    </header>
 
-      <button class="checkout-btn" onclick="checkout()">Proceed to Payment</button>
+    <!-- Overlay -->
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"
+    ></div>
+
+    <!-- Drawer -->
+    <nav
+      id="drawer"
+      class="fixed top-0 right-0 h-full w-64 bg-blue-950 shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50"
+    >
+      <div
+        class="flex items-center justify-between px-4 py-3 border-b border-blue-900"
+      >
+        <span class="text-lg font-bold text-yellow-400">Navigation</span>
+        <button
+          id="closeDrawer"
+          class="text-2xl text-yellow-400 focus:outline-none"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <ul
+        class="flex flex-col p-5 space-y-4 text-yellow-400 font-bold text-base"
+      >
+        <li>
+          <a
+            href="dashboard.html"
+            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-yellow-400 hover:text-blue-950 transition"
+            ><i class="fas fa-house"></i> Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="orders.html"
+            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-yellow-400 hover:text-blue-950 transition"
+            ><i class="fas fa-box"></i> My Orders</a
+          >
+        </li>
+        <li>
+          <a
+            href="profile.html"
+            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-yellow-400 hover:text-blue-950 transition"
+            ><i class="fas fa-user"></i> Profile</a
+          >
+        </li>
+        <li>
+          <a
+            href="settings.html"
+            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-yellow-400 hover:text-blue-950 transition"
+            ><i class="fas fa-gear"></i> Settings</a
+          >
+        </li>
+        <li>
+          <a
+            href="login.html"
+            id="logout"
+            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-red-500 hover:text-white transition"
+            ><i class="fas fa-right-from-bracket"></i> Logout</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <!-- Welcome -->
+    <section
+      class="welcome-message text-center mt-28 mx-auto max-w-3xl px-6 py-6 bg-blue-950 text-yellow-400 rounded-md shadow-md"
+    >
+      <h2
+        id="welcomeMessage"
+        class="text-2xl sm:text-3xl font-extrabold mb-2 tracking-tight"
+      >
+        Welcome back 👋
+      </h2>
+      <p class="text-sm sm:text-base leading-relaxed font-medium">
+        Discover your favorite styles, explore new trends, and shop with
+        confidence. Your wardrobe upgrade starts here.
+      </p>
+    </section>
+
+    <!-- category -->
+    <section id="categorySection" class="categories">
+      <h3 class="text-center mb-6 text-xl font-semibold text-[#34495e]">
+        Select a Category
+      </h3>
+      <div
+        class="category-grid grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto px-4"
+      >
+        <!-- dynamic cards injected here -->
+      </div>
+    </section>
+
+    <!-- products -->
+    <section
+      id="productGrid"
+      class="product-grid-section mt-10 max-w-6xl mx-auto px-4"
+    >
+      <div
+        class="product-grid grid grid-cols-2 md:grid-cols-4 gap-8 justify-items-center"
+      >
+        <!-- dynamic product cards injected here -->
+      </div>
+    </section>
+
+    <!-- load more -->
+    <div class="load-more-container text-center mt-6">
+      <button
+        id="loadMoreBtn"
+        class="load-more-btn hidden px-6 py-2 bg-[#8BC34A] text-white rounded-md font-semibold hover:bg-[#7CB342] transition"
+      >
+        Load More
+      </button>
     </div>
-  </div>
 
-  <!-- loader -->
-  <div id="loader" class="loader-overlay hidden">
-    <div class="loader-spinner"></div>
-  </div>
+    <!-- cart -->
+    <div
+      id="cartModal"
+      class="cart-modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    >
+      <div
+        class="cart-content bg-white rounded-lg shadow-xl p-6 w-full max-w-md relative"
+      >
+        <span
+          class="close-cart absolute top-3 right-3 text-2xl cursor-pointer"
+          onclick="toggleCartModal(false)"
+          >×</span
+        >
+        <h3 class="text-lg font-bold mb-4">Your Cart</h3>
 
-  <!-- scripts -->
-  <script src="/js/dashboard.js"></script>
-  <script src="/js/product.js"></script>
-  <script src="/js/cart.js"></script>
-  <script src="/js/header.js"></script>
-  <script src="/js/welcome-message.js"></script>
-</body>
+        <div id="cartItems" class="space-y-3"></div>
+
+        <div id="cartSummary" class="cart-summary mt-4 space-y-2 text-sm">
+          <hr />
+          <p><strong>Total Items:</strong> <span id="totalItems">0</span></p>
+          <p><strong>Total Amount:</strong> ₦<span id="totalAmount">0</span></p>
+
+          <p>
+            <strong>Bank:</strong>
+            <select id="bankSelect" class="border rounded px-2 py-1">
+              <option value="">Select Bank</option>
+              <option value="GTBank">GTBank</option>
+              <option value="Access Bank">Access Bank</option>
+              <option value="UBA">UBA</option>
+              <option value="Zenith Bank">Zenith Bank</option>
+            </select>
+          </p>
+
+          <p>
+            <strong>Card Number:</strong>
+            <input
+              type="text"
+              id="cardNumber"
+              maxlength="16"
+              class="border rounded px-2 py-1"
+            />
+          </p>
+          <p>
+            <strong>Expiry:</strong>
+            <input
+              type="text"
+              id="expiry"
+              placeholder="MM/YY"
+              class="border rounded px-2 py-1"
+            />
+          </p>
+          <p>
+            <strong>CVV:</strong>
+            <input
+              type="text"
+              id="cvv"
+              maxlength="3"
+              class="border rounded px-2 py-1"
+            />
+          </p>
+        </div>
+
+        <button
+          class="checkout-btn mt-4 w-full bg-[#8BC34A] text-white rounded-md py-2 font-semibold hover:bg-[#7CB342] transition"
+          onclick="checkout()"
+        >
+          Proceed to Payment
+        </button>
+      </div>
+    </div>
+
+    <!-- loader -->
+    <div
+      id="loader"
+      class="loader-overlay hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
+    >
+      <div
+        class="loader-spinner w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"
+      ></div>
+    </div>
+
+    <!-- scripts -->
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/product.js"></script>
+    <script src="/js/cart.js"></script>
+  </body>
 </html>

@@ -2,43 +2,35 @@ document.addEventListener("DOMContentLoaded", () => {
   loadUserProfile();
 });
 
-async function loadUserProfile() {
-  const token = localStorage.getItem("authToken");
-
-  if (!token) {
-    console.error("No token found");
-    window.location.href = "/pages/login.html";
-    return;
-  }
-
+function loadUserProfile() {
+  // ✅ Parse the registeredUser object from localStorage
+  let user = null;
   try {
-   const response = await fetch("/api/profile", {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
-
-    const result = await response.json();
-    if (!response.ok || !result.success || !result.user) {
-      throw new Error("Invalid profile response");
-    }
-
-    const user = result.user;
-    console.log("Fetched user:", user);
-
-    localStorage.setItem("loggedInUser", user.username); // ✅ Store for dashboard greeting
-
-    setText("profile-username", user.username);
-    setText("profile-fullname", user.fullName);
-    setText("profile-email", user.email);
-    setText("profile-phone", user.phone);
-    setAvatar("user-avatar", user.avatar);
-
-  } catch (error) {
-    console.error("Error loading profile:", error);
-    showFallbackProfile();
+    user = JSON.parse(localStorage.getItem("registeredUser"));
+  } catch (e) {
+    console.error("No registeredUser found in localStorage");
   }
+
+  // ✅ Fallbacks if nothing is found
+  const username = (user && user.username) || "Guest";
+  const fullName = (user && user.fullName) || "Unknown User";
+  const email =
+    (user && user.email) ||
+    sessionStorage.getItem("userEmail") ||
+    "guest@velora.com";
+  const phone =
+    (user && user.phone) || sessionStorage.getItem("userPhone") || "N/A";
+  const avatar = (user && user.avatar) || "/images/default-avatar.webp";
+
+  // ✅ Update DOM
+  setText("profile-username", username);
+  setText("profile-fullname", fullName);
+  setText("profile-email", email);
+  setText("profile-phone", phone);
+  setAvatar("user-avatar", avatar);
+
+  // ✅ Store username for dashboard greeting
+  localStorage.setItem("loggedInUser", username);
 }
 
 function setText(id, value) {
@@ -51,15 +43,7 @@ function setAvatar(id, src) {
   if (img) {
     img.src = src;
     img.onerror = () => {
-      img.src = "/images/default-avatar.webp";
+      img.src = "/public/images/default-avatar.webp";
     };
   }
-}
-
-function showFallbackProfile() {
-  setText("profile-username", "Guest");
-  setText("profile-fullname", "Unknown User");
-  setText("profile-email", "guest@velora.com");
-  setText("profile-phone", "N/A");
-  setAvatar("user-avatar", "/images/default-avatar.webp");
 }

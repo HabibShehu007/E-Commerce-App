@@ -1,30 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Velora Login</title>
-  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="/css/login.css" />
-</head>
-<body>
-  <div class="login-container">
-  <h2>Welcome Back</h2>
-  <form id="loginForm">
-    <input type="email" id="username" placeholder="Email" required />
-    <input type="password" id="password" placeholder="Password" required />
-    <button type="submit">Login</button>
-  </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Velora | Login</title>
+    <link rel="icon" href="/public/images/logo.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/src/output.css" />
+    <link rel="stylesheet" href="/css/animation.css" />
+  </head>
+  <body
+    class="font-inter bg-[#8BC34A] min-h-screen flex items-center justify-center"
+  >
+    <main class="w-full max-w-sm bg-white rounded-lg shadow-md p-6 mx-3">
+      <h2 class="text-xl font-bold text-center mb-2">Welcome Back</h2>
+      <p class="text-xs text-center text-gray-600 mb-5">
+        Log in to continue shopping with Velora
+      </p>
 
-  <!-- Feedback messages go here -->
-  <div class="loader hidden"></div>
-  <p id="successMsg"></p>
-  <p id="errorMsg"></p>
+      <form id="loginForm" class="space-y-4">
+        <!-- Email -->
+        <div>
+          <label
+            for="username"
+            class="block text-xs font-medium text-gray-600 mb-1"
+            >Email Address</label
+          >
+          <input
+            type="email"
+            id="username"
+            name="username"
+            required
+            autocomplete="email"
+            class="w-full h-10 px-3 text-sm border border-gray-300 rounded-md focus:border-[#8BC34A] focus:ring-1 focus:ring-[#8BC34A] outline-none"
+          />
+        </div>
 
-  <p class="signup-link">Don't have an account? <a href="/pages/registration.html">Sign up</a></p>
-</div>
+        <!-- Password -->
+        <div>
+          <label
+            for="password"
+            class="block text-xs font-medium text-gray-600 mb-1"
+            >Password</label
+          >
+          <div class="relative">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              autocomplete="current-password"
+              class="w-full h-10 px-3 text-sm border border-gray-300 rounded-md focus:border-[#8BC34A] focus:ring-1 focus:ring-[#8BC34A] outline-none"
+            />
+            <button
+              type="button"
+              class="password-toggle absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#8BC34A]"
+            >
+              <i class="fa fa-eye"></i>
+            </button>
+          </div>
+        </div>
 
+        <!-- Submit -->
+        <button
+          type="submit"
+          id="login-btn"
+          class="w-full h-11 bg-[#8BC34A] text-white font-bold text-sm rounded-md shadow-md hover:bg-[#7CB342] transition flex items-center justify-center gap-2"
+        >
+          <span id="btn-text">Login</span>
+          <span
+            id="btn-spinner"
+            class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+          ></span>
+        </button>
+      </form>
 
-  <script src="/js/login.js"></script>
-</body>
+      <!-- Success Modal -->
+      <div
+        id="login-success-modal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div
+          class="bg-white rounded-lg shadow-xl p-6 text-center transform transition-all duration-300 scale-95 opacity-0 animate-fadeInUp"
+        >
+          <i class="fa-solid fa-circle-check text-green-500 text-5xl mb-4"></i>
+          <h2 class="text-xl font-bold mb-2">Login Successful</h2>
+          <p class="text-sm text-gray-600 mb-6">
+            Welcome back 🎉 Redirecting you to your dashboard...
+          </p>
+          <button
+            onclick="window.location.href = '/pages/dashboard.html'"
+            class="px-6 py-2 bg-[#8BC34A] text-white rounded-md font-semibold hover:bg-[#7CB342] transition"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+
+      <!-- Error Modal -->
+      <div
+        id="login-error-modal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div
+          class="bg-white rounded-lg shadow-xl p-6 text-center transform transition-all duration-300 scale-95 opacity-0 animate-fadeInUp"
+        >
+          <i class="fa-solid fa-circle-xmark text-red-500 text-5xl mb-4"></i>
+          <h2 class="text-xl font-bold mb-2">Login Failed</h2>
+          <p id="login-error-message" class="text-sm text-gray-600 mb-6"></p>
+          <button
+            onclick="
+              document
+                .getElementById('login-error-modal')
+                .classList.add('hidden')
+            "
+            class="px-6 py-2 bg-red-500 text-white rounded-md font-semibold hover:bg-red-600 transition"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+
+      <!-- Signup link -->
+      <p class="text-center mt-4 text-xs">
+        Don't have an account?
+        <a
+          href="/pages/registration.html"
+          class="text-[#8BC34A] hover:underline"
+          >Sign up</a
+        >
+      </p>
+    </main>
+
+    <script src="/js/login.js"></script>
+  </body>
 </html>

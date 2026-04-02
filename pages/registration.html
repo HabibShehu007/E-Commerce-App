@@ -1,79 +1,238 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Velora | Sign Up</title>
-  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="/css/registration.css" />
-</head>
-<body>
-  <main class="registration-container">
-    <div class="registration-card" style="opacity: 1;">
-      <h1>Create Your Account</h1>
-      <p class="subtext">Join Velora for exclusive fashion deals</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Velora | Sign Up</title>
+    <link rel="icon" href="/public/images/logo.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/src/output.css" />
+    <link rel="stylesheet" href="/css/animation.css" />
+    <script src="/js/registration.js"></script>
+  </head>
+  <body
+    class="font-inter bg-[#8BC34A] min-h-screen flex items-center justify-center"
+  >
+    <main class="w-full max-w-sm bg-white rounded-lg shadow-md p-6 mx-3">
+      <h1 class="text-xl font-bold text-center mb-2">Create Your Account</h1>
+      <p class="text-sm text-center text-gray-600 mb-5">
+        Join Velora for exclusive fashion deals
+      </p>
 
-      <form id="registration-form" novalidate>
+      <form id="registration-form" class="space-y-4" novalidate>
         <!-- Full Name -->
-        <div class="input-group">
-          <input type="text" id="full-name" name="fullName" placeholder=" " required autocomplete="name" />
-          <label for="full-name">Full Name</label>
+        <div class="relative">
+          <input
+            type="text"
+            id="full-name"
+            name="fullName"
+            required
+            autocomplete="name"
+            placeholder=" "
+            class="peer w-full h-10 px-3 text-sm border rounded-md focus:border-[#8BC34A] focus:ring-1 focus:ring-[#8BC34A] outline-none"
+          />
+          <label
+            for="full-name"
+            class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-sm peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[#8BC34A] peer-valid:-top-2 peer-valid:text-xs peer-valid:text-[#8BC34A] bg-white px-1"
+          >
+            Full Name
+          </label>
         </div>
 
-        <!-- Phone Input -->
-        <div class="input-group phone-group">
-          <img id="selected-flag" src="https://flagcdn.com/w40/ng.png" alt="Country Flag" class="country-flag" />
-          <select id="country-code" name="countryCode">
-            <option value="+234" data-flag="https://flagcdn.com/w40/ng.png">NG+234</option>
-            <option value="+27" data-flag="https://flagcdn.com/w40/za.png">ZA+27</option>
-            <option value="+233" data-flag="https://flagcdn.com/w40/gh.png">GH+233</option>
-          </select>
-          <input type="tel" id="phone" name="phoneRaw" placeholder="Phone Number" required autocomplete="tel" />
+        <!-- Phone -->
+        <div class="relative">
+          <input
+            type="tel"
+            id="phone"
+            name="phoneRaw"
+            required
+            autocomplete="tel"
+            placeholder=" "
+            class="peer w-full h-10 px-3 text-sm border rounded-md focus:border-[#8BC34A] focus:ring-1 focus:ring-[#8BC34A] outline-none"
+          />
+          <label
+            for="phone"
+            class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-sm peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[#8BC34A] peer-valid:-top-2 peer-valid:text-xs peer-valid:text-[#8BC34A] bg-white px-1"
+          >
+            Phone Number
+          </label>
         </div>
 
         <!-- Username -->
-        <div class="input-group">
-          <input type="text" id="username" name="username" placeholder=" " required autocomplete="username" />
-          <label for="username">Username</label>
+        <div class="relative">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+            autocomplete="username"
+            placeholder=" "
+            class="peer w-full h-10 px-3 text-sm border rounded-md focus:border-[#8BC34A] focus:ring-1 focus:ring-[#8BC34A] outline-none"
+          />
+          <label
+            for="username"
+            class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-sm peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[#8BC34A] peer-valid:-top-2 peer-valid:text-xs peer-valid:text-[#8BC34A] bg-white px-1"
+          >
+            Username
+          </label>
         </div>
 
         <!-- Email -->
-        <div class="input-group">
-          <input type="email" id="email" name="email" placeholder=" " required autocomplete="email" />
-          <label for="email">Email Address</label>
+        <div class="relative">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder=" "
+            class="peer w-full h-10 px-3 text-sm border rounded-md focus:border-[#8BC34A] focus:ring-1 focus:ring-[#8BC34A] outline-none"
+          />
+          <label
+            for="email"
+            class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-sm peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[#8BC34A] peer-valid:-top-2 peer-valid:text-xs peer-valid:text-[#8BC34A] bg-white px-1"
+          >
+            Email Address
+          </label>
         </div>
 
         <!-- Password -->
-        <div class="input-group">
-          <input type="password" id="password" name="password" placeholder=" " required minlength="8" autocomplete="new-password" />
-          <label for="password">Password</label>
-          <button type="button" class="password-toggle" title="Show password"><i class="fa fa-eye"></i></button>
+        <div class="relative">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            minlength="8"
+            autocomplete="new-password"
+            placeholder=" "
+            class="peer w-full h-10 px-3 text-sm border rounded-md focus:border-[#8BC34A] focus:ring-1 focus:ring-[#8BC34A] outline-none"
+          />
+          <label
+            for="password"
+            class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-sm peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[#8BC34A] peer-valid:-top-2 peer-valid:text-xs peer-valid:text-[#8BC34A] bg-white px-1"
+          >
+            Password
+          </label>
+          <button
+            type="button"
+            class="password-toggle absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#8BC34A]"
+          >
+            <i class="fa fa-eye"></i>
+          </button>
         </div>
 
         <!-- Confirm Password -->
-        <div class="input-group">
-          <input type="password" id="confirm-password" name="confirmPassword" placeholder=" " required minlength="8" autocomplete="new-password" />
-          <label for="confirm-password">Confirm Password</label>
-          <button type="button" class="password-toggle" title="Show password"><i class="fa fa-eye"></i></button>
+        <div class="relative">
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirmPassword"
+            required
+            minlength="8"
+            autocomplete="new-password"
+            placeholder=" "
+            class="peer w-full h-10 px-3 text-sm border rounded-md focus:border-[#8BC34A] focus:ring-1 focus:ring-[#8BC34A] outline-none"
+          />
+          <label
+            for="confirm-password"
+            class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-sm peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[#8BC34A] peer-valid:-top-2 peer-valid:text-xs peer-valid:text-[#8BC34A] bg-white px-1"
+          >
+            Confirm Password
+          </label>
+          <button
+            type="button"
+            class="password-toggle absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#8BC34A]"
+          >
+            <i class="fa fa-eye"></i>
+          </button>
         </div>
 
-        <!-- Terms Checkbox -->
-        <div class="checkbox-group">
-          <input type="checkbox" id="terms" name="termsAccepted" required />
-          <label for="terms">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a></label>
+        <!-- Terms -->
+        <div class="flex items-center gap-2 text-xs text-gray-600">
+          <input
+            type="checkbox"
+            id="terms"
+            required
+            class="w-4 h-4 accent-[#8BC34A]"
+          />
+          <label for="terms"
+            >I agree to the
+            <a href="#" class="text-[#8BC34A] hover:underline">Terms</a> and
+            <a href="#" class="text-[#8BC34A] hover:underline"
+              >Privacy Policy</a
+            ></label
+          >
         </div>
 
         <!-- Submit -->
-        <button type="submit" class="submit-button">Continue</button>
+        <button
+          type="submit"
+          id="signup-btn"
+          class="w-full h-11 bg-[#8BC34A] text-white font-bold text-sm rounded-md shadow-md hover:bg-[#7CB342] transition flex items-center justify-center gap-2"
+        >
+          <span id="btn-text">Continue</span>
+          <span
+            id="btn-spinner"
+            class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+          ></span>
+        </button>
       </form>
 
-      <!-- Already have an account -->
-      <div class="login-redirect">
-        <p>Already have an account? <a href="/pages/login.html">Log in here</a></p>
+      <!-- Success Modal -->
+      <div
+        id="success-modal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div
+          class="bg-white rounded-lg shadow-xl p-6 text-center animate-fadeInUp"
+        >
+          <i class="fa-solid fa-circle-check text-green-500 text-5xl mb-4"></i>
+          <h2 class="text-xl font-bold mb-2">Registration Successful</h2>
+          <p class="text-sm text-gray-600 mb-6">
+            Welcome to Velora 🎉 You can now log in.
+          </p>
+          <button
+            onclick="window.location.href = '/pages/login.html'"
+            class="px-6 py-2 bg-[#8BC34A] text-white rounded-md font-semibold hover:bg-[#7CB342] transition"
+          >
+            Go to Login
+          </button>
+        </div>
       </div>
-    </div>
-  </main>
 
-  <script src="/js/registration.js"></script>
-</body>
+      <!-- Error Modal -->
+      <div
+        id="error-modal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div
+          class="bg-white rounded-lg shadow-xl p-6 text-center animate-fadeInUp"
+        >
+          <i class="fa-solid fa-circle-xmark text-red-500 text-5xl mb-4"></i>
+          <h2 class="text-xl font-bold mb-2">Registration Failed</h2>
+          <p id="error-message" class="text-sm text-gray-600 mb-6"></p>
+          <button
+            onclick="
+              document.getElementById('error-modal').classList.add('hidden')
+            "
+            class="px-6 py-2 bg-red-500 text-white rounded-md font-semibold hover:bg-red-600 transition"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+
+      <!-- Already have an account -->
+      <p class="text-center mt-4 text-xs">
+        Already have an account?
+        <a href="/pages/login.html" class="text-[#8BC34A] hover:underline"
+          >Log in here</a
+        >
+      </p>
+    </main>
+  </body>
 </html>

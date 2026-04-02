@@ -1,23 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Orders</title>
-    <script src="../js/header.js"></script>
-  <link rel="stylesheet" href="../css/orders.css" />
-  <link rel="stylesheet" href="../css/header.css" />
-  <link rel="stylesheet" href="../fontawesome-free-7.0.0-web/fontawesome-free-7.0.0-web/css/all.min.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Orders</title>
 
-  <main>
-    <h2>🧾 My Orders</h2>
-    <section id="ordersList" class="orders-container">
-      <!-- Order cards will be injected here -->
-    </section>
-  </main>
+    <!-- FontAwesome Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="/src/output.css" rel="stylesheet" />
+  </head>
+  <body
+    class="font-[Segoe_UI] bg-gradient-to-br from-[#f0f4f8] to-[#e8ecf1] min-h-screen flex flex-col"
+  >
+    <!-- Back Button -->
+    <header class="flex justify-end p-4">
+      <a
+        href="dashboard.html"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-blue-950 text-yellow-400 font-semibold rounded-md shadow hover:bg-blue-900 transition text-sm sm:text-base"
+      >
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </header>
 
-  <script src="../js/orders.js"></script>
-</body>
+    <main class="flex-grow px-4">
+      <h2 class="text-center text-2xl sm:text-3xl font-bold text-blue-950 mb-6">
+        <i class="fas fa-receipt mr-2"></i> My Orders
+      </h2>
+
+      <!-- Orders Grid -->
+      <section
+        id="ordersList"
+        class="orders-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-3"
+      >
+        <!-- Order cards will be injected here by orders.js -->
+      </section>
+    </main>
+
+    <script src="../js/orders.js"></script>
+  </body>
 </html>
