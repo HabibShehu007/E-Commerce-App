@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Velora Admin Dashboard</title>
+
+    <!-- FontAwesome Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <link href="/src/output.css" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen bg-gray-100 font-[Segoe_UI]">
+    <!-- Navbar -->
+    <nav
+      class="flex justify-between items-center bg-green-500 text-white px-6 py-4 shadow"
+    >
+      <span class="font-bold text-lg flex items-center gap-2">
+        <i class="fas fa-tools"></i> Velora Admin
+      </span>
+      <button
+        onclick="logout()"
+        class="flex items-center gap-2 px-4 py-2 bg-white text-green-600 font-semibold rounded-md shadow hover:bg-gray-100 transition"
+      >
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <main class="px-6 py-10">
+      <h2 class="text-center text-2xl font-bold text-green-600 mb-8">
+        Welcome, Admin
+      </h2>
+
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Manage Users -->
+        <a href="admin-users.html" class="block">
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:scale-105 transition"
+          >
+            <i class="fas fa-users text-green-500 text-4xl mb-3"></i>
+            <h4 class="text-lg font-semibold text-green-600">Manage Users</h4>
+            <p class="text-sm text-gray-600 mt-2 text-center">
+              View, block, or delete registered users
+            </p>
+          </div>
+        </a>
+
+        <!-- Track Orders -->
+        <a href="orders.html" class="block">
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:scale-105 transition"
+          >
+            <i class="fas fa-box text-green-500 text-4xl mb-3"></i>
+            <h4 class="text-lg font-semibold text-green-600">Track Orders</h4>
+            <p class="text-sm text-gray-600 mt-2 text-center">
+              Monitor all orders placed by users
+            </p>
+          </div>
+        </a>
+
+        <!-- Settings -->
+        <a href="settings.html" class="block sm:col-span-2 lg:col-span-1">
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:scale-105 transition"
+          >
+            <i class="fas fa-cogs text-green-500 text-4xl mb-3"></i>
+            <h4 class="text-lg font-semibold text-green-600">Settings</h4>
+            <p class="text-sm text-gray-600 mt-2 text-center">
+              Configure system preferences and admin options
+            </p>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <script>
+      function logout() {
+        localStorage.clear();
+        window.location.href = "/pages/login.html";
+      }
+    </script>
+  </body>
+</html>

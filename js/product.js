@@ -2,20 +2,13 @@ const ProductModule = (() => {
   let currentIndex = 0;
   let currentProducts = [];
 
-  async function getOrderedProducts() {
-    const token = localStorage.getItem("token");
-    if (!token) return [];
-
-    try {
-      const res = await fetch("http://localhost:5000/api/orders/user", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      return Array.isArray(data.ordered) ? data.ordered : [];
-    } catch (err) {
-      console.error("Failed to fetch ordered products:", err);
-      return [];
-    }
+  // ✅ Get ordered products from localStorage/sessionStorage
+  function getOrderedProducts() {
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    const currentUser = localStorage.getItem("username") || "Guest";
+    return orders
+      .filter((order) => order.user === currentUser)
+      .map((order) => order.id);
   }
 
   async function displayProducts(categoryFolder, displayName, count = 20) {
@@ -73,7 +66,7 @@ const ProductModule = (() => {
   async function renderNextBatch(container) {
     const batchSize = 8;
     const slice = currentProducts.slice(currentIndex, currentIndex + batchSize);
-    const ordered = await getOrderedProducts();
+    const ordered = getOrderedProducts();
 
     slice.forEach((product) => {
       const card = document.createElement("div");
@@ -91,7 +84,7 @@ const ProductModule = (() => {
         <p class="text-sm text-gray-600 mb-2">₦${nairaPrice}</p>
         ${
           isOrdered
-            ? `<span class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-md">Sold Out</span>`
+            ? `<span class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-md">Ordered</span>`
             : ""
         }
         <button ${isOrdered ? "disabled" : ""}
@@ -104,7 +97,7 @@ const ProductModule = (() => {
         card.classList.add("opacity-60", "pointer-events-none");
       } else {
         const button = card.querySelector("button");
-        button.onclick = () => openCartModal(product.id);
+        button.onclick = () => addToCart(product);
       }
 
       container.appendChild(card);
@@ -117,6 +110,50 @@ const ProductModule = (() => {
       const loadMoreBtn = document.getElementById("loadMoreBtn");
       if (loadMoreBtn) loadMoreBtn.style.display = "none";
     }
+  }
+
+  // ✅ Add product to cart
+  function addToCart(product) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      price: `₦${product.price.toLocaleString()}`,
+      user: localStorage.getItem("username") || "Guest",
+      date: new Date().toLocaleDateString("en-NG", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }),
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    showCartSuccessModal(product.name);
+  }
+
+  // ✅ Success modal
+  function showCartSuccessModal(productName) {
+    const modal = document.createElement("div");
+    modal.className =
+      "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50";
+    modal.innerHTML = `
+      <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center">
+        <i class="fas fa-check-circle text-green-600 text-4xl mb-3"></i>
+        <h3 class="text-lg font-semibold text-blue-950 mb-2">Added to Cart</h3>
+        <p class="text-sm text-slate-600 mb-4">${productName} has been added to your cart.</p>
+        <div class="flex justify-center gap-3">
+          <button onclick="document.body.removeChild(this.closest('.fixed'))"
+            class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition">
+            Close
+          </button>
+          <a href="cart.html"
+            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition inline-flex items-center gap-2">
+            <i class="fas fa-shopping-cart"></i> Go to Cart
+          </a>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
   }
 
   const observer = new IntersectionObserver(
@@ -132,5 +169,5 @@ const ProductModule = (() => {
     { threshold: 0.2 },
   );
 
-  return { displayProducts, getOrderedProducts };
+  return { displayProducts };
 })();

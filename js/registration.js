@@ -1,4 +1,3 @@
-// registration.js
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("registration-form");
   const btnText = document.getElementById("btn-text");
@@ -66,6 +65,16 @@ document.addEventListener("DOMContentLoaded", () => {
         // Save user data locally
         const userData = { fullName, username, phone, email, password };
 
+        // Store in localStorage for admin dashboard
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+        users.push({
+          id: Date.now(),
+          ...userData,
+          role: "user",
+          registered: new Date().toISOString().split("T")[0],
+        });
+        localStorage.setItem("users", JSON.stringify(users));
+
         localStorage.setItem("registeredUser", JSON.stringify(userData));
         localStorage.setItem("loggedInUser", username);
         sessionStorage.setItem("userEmail", email);
@@ -94,13 +103,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function showError(inputId, message) {
     const input = document.getElementById(inputId);
     if (input) {
-      input.classList.add("error");
+      input.classList.add("border-red-500");
       input.setAttribute("title", message);
     }
   }
   function clearErrors() {
-    document.querySelectorAll(".error").forEach((el) => {
-      el.classList.remove("error");
+    document.querySelectorAll("input").forEach((el) => {
+      el.classList.remove("border-red-500");
       el.removeAttribute("title");
     });
   }

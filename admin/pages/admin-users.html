@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Users | Velora Admin</title>
+
+    <!-- FontAwesome Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <link href="/src/output.css" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen bg-gray-100 font-[Segoe_UI]">
+    <!-- Navbar -->
+    <nav
+      class="flex justify-between items-center bg-green-500 text-white px-6 py-4 shadow"
+    >
+      <span class="font-bold text-lg flex items-center gap-2">
+        <i class="fas fa-users"></i> User Management
+      </span>
+      <div class="flex gap-3">
+        <a
+          href="/admin/pages/admin-dashbaord.html"
+          class="flex items-center gap-2 px-4 py-2 bg-white text-green-600 font-semibold rounded-md shadow hover:bg-gray-100 transition"
+        >
+          <i class="fas fa-arrow-left"></i> Back
+        </a>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main class="px-4 sm:px-6 lg:px-10 py-8">
+      <div
+        class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4"
+      >
+        <h3 class="text-xl font-bold text-green-600">Registered Users</h3>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search by name or email"
+          class="w-full sm:w-64 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+      </div>
+
+      <!-- Responsive Table -->
+      <div class="overflow-x-auto bg-white rounded-lg shadow">
+        <table class="min-w-full text-sm text-left">
+          <thead class="bg-green-500 text-white">
+            <tr>
+              <th class="px-4 py-2">#</th>
+              <th class="px-4 py-2">Username</th>
+              <th class="px-4 py-2">Email</th>
+              <th class="px-4 py-2">Role</th>
+              <th class="px-4 py-2">Registered</th>
+              <th class="px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userTableBody" class="divide-y divide-gray-200">
+            <!-- User rows will be injected here by JS -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script>
+      function logout() {
+        localStorage.clear();
+        window.location.href = "/pages/login.html";
+      }
+    </script>
+    <script src="/admin/js/admin-users.js"></script>
+  </body>
+</html>
