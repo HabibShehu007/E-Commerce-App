@@ -1,6 +1,4 @@
-// dashboard.js
 document.addEventListener("DOMContentLoaded", () => {
-  // ✅ Session / Local Storage
   const username = localStorage.getItem("loggedInUser") || "Guest";
 
   // ✅ Show greeting
@@ -8,6 +6,25 @@ document.addEventListener("DOMContentLoaded", () => {
   if (greeting) {
     greeting.textContent = `Welcome, ${username}`;
   }
+
+  // ✅ Check for updated order statuses
+  const allOrders = JSON.parse(localStorage.getItem("orders")) || [];
+  const userOrders = allOrders.filter((order) => order.user === username);
+
+  // Keep a snapshot of last seen statuses
+  const lastStatuses = JSON.parse(localStorage.getItem("lastStatuses")) || {};
+
+  userOrders.forEach((order) => {
+    const prevStatus = lastStatuses[order.id];
+    if (prevStatus && prevStatus !== order.status) {
+      // Status changed → show overlay
+      showOrderOverlay(order.status);
+    }
+    // Update snapshot
+    lastStatuses[order.id] = order.status;
+  });
+
+  localStorage.setItem("lastStatuses", JSON.stringify(lastStatuses));
 
   // ✅ Navbar Drawer Toggle
   const menuBtn = document.getElementById("menuBtn");

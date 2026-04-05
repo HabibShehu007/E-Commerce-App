@@ -1,5 +1,5 @@
 window.onload = function () {
-  const currentUser = localStorage.getItem("loggedInUser") || "Guest"; // ✅ use loggedInUser
+  const currentUser = localStorage.getItem("loggedInUser") || "Guest";
   const allOrders = JSON.parse(localStorage.getItem("orders")) || [];
   const userOrders = allOrders.filter((order) => order.user === currentUser);
   const container = document.getElementById("ordersList");
@@ -16,41 +16,47 @@ window.onload = function () {
   userOrders.forEach((order, index) => {
     const status = order.status || "pending";
 
-    // ✅ Tailwind gradient classes for status
+    // ✅ Map statuses to colors + icons
     let statusClasses = "";
+    let statusIcon = "";
     if (status === "pending") {
-      statusClasses =
-        "bg-gradient-to-r from-orange-500 to-yellow-400 text-white";
+      statusClasses = "bg-yellow-500 text-white";
+      statusIcon = '<i class="fas fa-hourglass-half mr-1"></i>';
     } else if (status === "shipped") {
-      statusClasses = "bg-gradient-to-r from-blue-600 to-cyan-400 text-white";
-    } else if (status === "delivered") {
-      statusClasses = "bg-gradient-to-r from-green-600 to-lime-400 text-white";
+      statusClasses = "bg-blue-500 text-white";
+      statusIcon = '<i class="fas fa-truck mr-1"></i>';
+    } else if (status === "success") {
+      statusClasses = "bg-green-600 text-white";
+      statusIcon = '<i class="fas fa-check-circle mr-1"></i>';
+    } else if (status === "failed") {
+      statusClasses = "bg-red-600 text-white";
+      statusIcon = '<i class="fas fa-times-circle mr-1"></i>';
     }
 
     const card = document.createElement("div");
     card.className =
-      "flex flex-col max-w-xs mx-auto bg-gradient-to-br from-white to-[#e0f7fa] rounded-xl shadow-lg border border-[#d0e0e6] overflow-hidden transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-xl";
+      "flex flex-col max-w-xs mx-auto bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-xl";
 
     card.innerHTML = `
       <img src="${order.image}" alt="${order.name}"
-        class="w-full h-36 object-cover border-b border-[#cce4ea]" />
+        class="w-full h-36 object-cover border-b border-gray-200" />
       <div class="flex flex-col gap-2 p-4">
-        <h3 class="text-lg font-bold text-[#0d3b66]">
+        <h3 class="text-lg font-bold text-gray-800">
           <i class="fas fa-tag mr-2 text-yellow-500"></i>${order.name}
         </h3>
-        <p class="text-sm text-[#3c4858]">
+        <p class="text-sm text-gray-600">
           <i class="fas fa-hashtag mr-2 text-blue-500"></i>Order ID: #${order.id || index + 1}
         </p>
-        <p class="text-sm text-[#3c4858] flex items-center gap-2">
+        <p class="text-sm text-gray-600 flex items-center gap-2">
           <i class="fas fa-info-circle text-slate-500"></i>
           Status: <span class="self-start mt-1 px-3 py-1 rounded-md text-xs font-semibold uppercase tracking-wide shadow ${statusClasses}">
-            ${status}
+            ${statusIcon}${status}
           </span>
         </p>
-        <p class="text-sm text-[#3c4858]">
+        <p class="text-sm text-gray-600">
           <i class="fas fa-money-bill-wave mr-2 text-green-600"></i>${order.price}
         </p>
-        <p class="text-sm text-[#3c4858]">
+        <p class="text-sm text-gray-600">
           <i class="fas fa-calendar-alt mr-2 text-purple-500"></i>${order.date}
         </p>
       </div>
