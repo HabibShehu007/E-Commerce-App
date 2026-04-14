@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Simulate async login
     setTimeout(() => {
-      if (username === "velora@admin.com" && password === "velora@12345") {
+      if (username === "velora@admin.com" && password === "admin12345") {
         // Save token
         localStorage.setItem("adminToken", "secure-admin-token");
 

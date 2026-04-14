@@ -14,8 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
       row.innerHTML = `
         <td class="px-4 py-2">${index + 1}</td>
         <td class="px-4 py-2">${order.user}</td>
-        <td class="px-4 py-2">${order.product}</td>
-        <td class="px-4 py-2">${order.price}</td>
+        <td class="px-4 py-2">${order.name || "Unknown Product"}</td>
+        <td class="px-4 py-2">
+          Unit: ₦${order.unitPrice?.toLocaleString() || 0}<br>
+          Qty: ${order.quantity || 1}<br>
+          <strong>Total: ₦${order.totalPrice?.toLocaleString() || 0}</strong>
+        </td>
         <td class="px-4 py-2">${order.date}</td>
         <td class="px-4 py-2">
           <select data-index="${index}" 
@@ -37,13 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const idx = e.target.getAttribute("data-index");
         const newStatus = e.target.value;
 
-        // Update local data
         orders[idx].status = newStatus;
-
-        // Save back to localStorage
         localStorage.setItem("orders", JSON.stringify(orders));
-
-        // Re-render to reflect changes
         renderOrders(orders);
       });
     });
@@ -59,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const filtered = orders.filter(
         (order) =>
           order.user.toLowerCase().includes(query) ||
-          order.product.toLowerCase().includes(query),
+          (order.name && order.name.toLowerCase().includes(query)),
       );
       renderOrders(filtered);
     });
@@ -68,6 +67,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Logout function
 function logout() {
-  localStorage.clear();
-  // window.location.href = "/pages/login.html";
+  window.location.href = "/pages/login.html";
 }

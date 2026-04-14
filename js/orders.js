@@ -53,8 +53,17 @@ window.onload = function () {
             ${statusIcon}${status}
           </span>
         </p>
-        <p class="text-sm text-gray-600">
-          <i class="fas fa-money-bill-wave mr-2 text-green-600"></i>${order.price}
+        <p class="text-sm text-gray-600 flex items-center gap-2">
+          <i class="fas fa-money-bill-wave text-green-600"></i>
+          Unit Price: ₦${order.unitPrice?.toLocaleString() || 0}
+        </p>
+        <p class="text-sm text-gray-600 flex items-center gap-2">
+          <i class="fas fa-layer-group text-blue-600"></i>
+          Quantity: ${order.quantity || 1}
+        </p>
+        <p class="text-sm text-gray-800 font-semibold flex items-center gap-2">
+          <i class="fas fa-coins text-green-500"></i>
+          Total: ₦${order.totalPrice?.toLocaleString() || 0}
         </p>
         <p class="text-sm text-gray-600">
           <i class="fas fa-calendar-alt mr-2 text-purple-500"></i>${order.date}
@@ -73,7 +82,6 @@ function updateOrderStatus(orderIndex, newStatus) {
     allOrders[orderIndex].status = newStatus;
     localStorage.setItem("orders", JSON.stringify(allOrders));
 
-    // Show success modal instead of alert
     const modal = document.createElement("div");
     modal.className =
       "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50";

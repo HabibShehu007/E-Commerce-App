@@ -12,77 +12,84 @@
     />
     <!-- Tailwind CSS -->
     <link href="/src/output.css" rel="stylesheet" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/admin/js/admin-dashbaord.js"></script>
   </head>
-  <body class="min-h-screen bg-gray-100 font-[Segoe_UI]">
-    <!-- Navbar -->
-    <nav
-      class="flex justify-between items-center bg-green-500 text-white px-6 py-4 shadow"
-    >
-      <span class="font-bold text-lg flex items-center gap-2">
-        <i class="fas fa-tools"></i> Velora Admin
-      </span>
-      <button
-        onclick="logout()"
-        class="flex items-center gap-2 px-4 py-2 bg-white text-green-600 font-semibold rounded-md shadow hover:bg-gray-100 transition"
-      >
-        <i class="fas fa-sign-out-alt"></i> Logout
-      </button>
-    </nav>
-
-    <!-- Dashboard Content -->
-    <main class="px-6 py-10">
-      <h2 class="text-center text-2xl font-bold text-green-600 mb-8">
-        Welcome, Admin
+  <body class="min-h-screen bg-gray-100 font-[Segoe_UI] flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-green-600 text-white flex flex-col p-6">
+      <h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
+        <i class="fas fa-tshirt"></i> Velora Admin
       </h2>
-
-      <!-- Cards Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Manage Users -->
-        <a href="admin-users.html" class="block">
-          <div
-            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:scale-105 transition"
-          >
-            <i class="fas fa-users text-green-500 text-4xl mb-3"></i>
-            <h4 class="text-lg font-semibold text-green-600">Manage Users</h4>
-            <p class="text-sm text-gray-600 mt-2 text-center">
-              View, block, or delete registered users
-            </p>
-          </div>
+      <nav class="flex flex-col gap-4">
+        <a
+          href="admin-users.html"
+          class="flex items-center gap-2 hover:text-gray-200"
+        >
+          <i class="fas fa-users"></i> Users
+        </a>
+        <a
+          href="admin-orders.html"
+          class="flex items-center gap-2 hover:text-gray-200"
+        >
+          <i class="fas fa-box"></i> Orders
         </a>
 
-        <!-- Track Orders -->
-        <a href="admin-orders.html" class="block">
-          <div
-            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:scale-105 transition"
-          >
-            <i class="fas fa-box text-green-500 text-4xl mb-3"></i>
-            <h4 class="text-lg font-semibold text-green-600">Track Orders</h4>
-            <p class="text-sm text-gray-600 mt-2 text-center">
-              Monitor all orders placed by users
-            </p>
-          </div>
-        </a>
+        <button
+          onclick="logout()"
+          class="flex items-center gap-2 mt-auto px-4 py-2 bg-white text-green-600 font-semibold rounded-md shadow hover:bg-gray-100 transition"
+        >
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </nav>
+    </aside>
 
-        <!-- Settings -->
-        <a href="settings.html" class="block sm:col-span-2 lg:col-span-1">
-          <div
-            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:scale-105 transition"
-          >
-            <i class="fas fa-cogs text-green-500 text-4xl mb-3"></i>
-            <h4 class="text-lg font-semibold text-green-600">Settings</h4>
-            <p class="text-sm text-gray-600 mt-2 text-center">
-              Configure system preferences and admin options
-            </p>
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <h2 class="text-2xl font-bold text-green-600 mb-6">Dashboard Overview</h2>
+
+      <!-- Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+        <!-- Users Card -->
+        <div class="bg-white rounded-xl shadow p-6 flex items-center gap-4">
+          <i class="fas fa-users text-green-500 text-4xl"></i>
+          <div>
+            <h3 class="text-lg font-semibold text-green-600">Total Users</h3>
+            <!-- Value will be injected from localStorage -->
+            <p id="usersCount" class="text-3xl font-bold">0</p>
           </div>
-        </a>
+        </div>
+
+        <!-- Orders Card -->
+        <div class="bg-white rounded-xl shadow p-6 flex items-center gap-4">
+          <i class="fas fa-box text-green-500 text-4xl"></i>
+          <div>
+            <h3 class="text-lg font-semibold text-green-600">Total Orders</h3>
+            <!-- Value will be injected from localStorage -->
+            <p id="ordersCount" class="text-3xl font-bold">0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Bar Chart -->
+        <div class="bg-white rounded-xl shadow p-6">
+          <h3 class="text-lg font-semibold text-green-600 mb-4">
+            Sales Statistics
+          </h3>
+          <canvas id="salesChart" height="120"></canvas>
+        </div>
+
+        <!-- Doughnut Chart -->
+        <div class="bg-white rounded-xl shadow p-6">
+          <h3 class="text-lg font-semibold text-green-600 mb-4">
+            Order Status Distribution
+          </h3>
+          <canvas id="statusChart" height="120"></canvas>
+        </div>
       </div>
     </main>
-
-    <script>
-      function logout() {
-        localStorage.clear();
-        window.location.href = "/pages/login.html";
-      }
-    </script>
   </body>
 </html>

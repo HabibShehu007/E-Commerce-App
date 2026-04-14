@@ -112,47 +112,128 @@ const ProductModule = (() => {
     }
   }
 
-  // ✅ Add product to cart
+  // ✅ Add product to cart with quantity modal
   function addToCart(product) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push({
-      id: product.id,
-      name: product.name,
-      image: product.image,
-      price: `₦${product.price.toLocaleString()}`,
-      user: localStorage.getItem("username") || "Guest",
-      date: new Date().toLocaleDateString("en-NG", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
+    const modal = document.createElement("div");
+    modal.className =
+      "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50";
+
+    modal.innerHTML = `
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center">
+      <img src="${product.image}" alt="${product.name}" 
+        class="w-32 h-32 object-cover mx-auto mb-3 rounded-md" />
+      <h3 class="text-lg font-semibold text-blue-950 mb-2">${product.name}</h3>
+      <p class="text-sm text-slate-600 mb-2">
+        Unit Price: ₦${product.price.toLocaleString()}
+      </p>
+      
+      <!-- Quantity Controls -->
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <button id="decrementQty"
+          class="px-3 py-1 bg-gray-300 rounded-md hover:bg-gray-400 transition text-lg font-bold">-</button>
+        <input id="quantity" type="number" min="1" value="1"
+          class="w-16 text-center border rounded-md p-1" />
+        <button id="incrementQty"
+          class="px-3 py-1 bg-gray-300 rounded-md hover:bg-gray-400 transition text-lg font-bold">+</button>
+      </div>
+
+      <p id="totalPrice" class="text-md font-bold text-green-600 mb-4">
+        Total: ₦${product.price.toLocaleString()}
+      </p>
+
+      <div class="flex justify-center gap-3">
+        <button onclick="document.body.removeChild(this.closest('.fixed'))"
+          class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition">
+          Cancel
+        </button>
+        <button id="confirmAdd"
+          class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  `;
+
+    document.body.appendChild(modal);
+
+    // ✅ Quantity logic
+    const qtyInput = modal.querySelector("#quantity");
+    const totalPriceEl = modal.querySelector("#totalPrice");
+    const incrementBtn = modal.querySelector("#incrementQty");
+    const decrementBtn = modal.querySelector("#decrementQty");
+
+    function updateTotal() {
+      let qty = parseInt(qtyInput.value) || 1;
+      if (qty < 1) qty = 1;
+      qtyInput.value = qty;
+      const total = product.price * qty;
+      totalPriceEl.textContent = `Total: ₦${total.toLocaleString()}`;
+    }
+
+    qtyInput.addEventListener("input", updateTotal);
+    incrementBtn.addEventListener("click", () => {
+      qtyInput.value = parseInt(qtyInput.value) + 1;
+      updateTotal();
     });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    showCartSuccessModal(product.name);
+    decrementBtn.addEventListener("click", () => {
+      qtyInput.value = Math.max(1, parseInt(qtyInput.value) - 1);
+      updateTotal();
+    });
+
+    // ✅ Confirm add to cart
+    modal.querySelector("#confirmAdd").onclick = () => {
+      const qty = parseInt(qtyInput.value) || 1;
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      cart.push({
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        unitPrice: product.price,
+        quantity: qty,
+        totalPrice: product.price * qty,
+        user: localStorage.getItem("username") || "Guest",
+        date: new Date().toLocaleDateString("en-NG", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        }),
+      });
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      document.body.removeChild(modal);
+      showCartSuccessModal(product.name, qty, product.price * qty);
+    };
   }
 
-  // ✅ Success modal
-  function showCartSuccessModal(productName) {
+  // ✅ Success modal with quantity + total
+  function showCartSuccessModal(productName, qty, total) {
     const modal = document.createElement("div");
     modal.className =
       "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50";
     modal.innerHTML = `
-      <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center">
-        <i class="fas fa-check-circle text-green-600 text-4xl mb-3"></i>
-        <h3 class="text-lg font-semibold text-blue-950 mb-2">Added to Cart</h3>
-        <p class="text-sm text-slate-600 mb-4">${productName} has been added to your cart.</p>
-        <div class="flex justify-center gap-3">
-          <button onclick="document.body.removeChild(this.closest('.fixed'))"
-            class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition">
-            Close
-          </button>
-          <a href="cart.html"
-            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition inline-flex items-center gap-2">
-            <i class="fas fa-shopping-cart"></i> Go to Cart
-          </a>
-        </div>
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center">
+      <i class="fas fa-check-circle text-green-600 text-4xl mb-3"></i>
+      <h3 class="text-lg font-semibold text-blue-950 mb-2">Added to Cart</h3>
+      <p class="text-sm text-slate-600 mb-2">
+        ${qty} × ${productName} added to your cart.
+      </p>
+      <p class="text-md font-bold text-green-600 mb-4">
+        Total: ₦${total.toLocaleString()}
+      </p>
+      <div class="flex justify-center gap-3">
+        <button onclick="document.body.removeChild(this.closest('.fixed'))"
+          class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition">
+          Close
+        </button>
+        <a href="cart.html"
+          class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition inline-flex items-center gap-2">
+          <i class="fas fa-shopping-cart"></i> Go to Cart
+        </a>
       </div>
-    `;
+    </div>
+  `;
     document.body.appendChild(modal);
   }
 

@@ -30,7 +30,13 @@ function loadCart() {
           <i class="fas fa-tag text-yellow-500"></i> ${item.name}
         </h3>
         <p class="text-sm text-slate-700 flex items-center gap-2">
-          <i class="fas fa-money-bill-wave text-green-600"></i> ${item.price}
+          <i class="fas fa-money-bill-wave text-green-600"></i> Unit Price: ₦${item.unitPrice.toLocaleString()}
+        </p>
+        <p class="text-sm text-slate-700 flex items-center gap-2">
+          <i class="fas fa-layer-group text-blue-600"></i> Quantity: ${item.quantity}
+        </p>
+        <p class="text-sm text-slate-700 flex items-center gap-2 font-semibold">
+          <i class="fas fa-coins text-green-500"></i> Total: ₦${item.totalPrice.toLocaleString()}
         </p>
         <p class="text-sm text-slate-700 flex items-center gap-2">
           <i class="fas fa-calendar-alt text-purple-500"></i> ${item.date}
@@ -77,7 +83,8 @@ function openPaymentForm(index) {
         <i class="fas fa-credit-card text-green-600"></i> Checkout Payment
       </h3>
       <p class="text-sm text-slate-700 mb-4">
-        You are paying for <strong>${item.name}</strong> (${item.price})
+        You are paying for <strong>${item.name}</strong> 
+        (₦${item.totalPrice.toLocaleString()} total for ${item.quantity})
       </p>
       <form id="paymentForm" class="flex flex-col gap-3">
         <input type="text" placeholder="Cardholder Name" required
@@ -118,7 +125,6 @@ function openPaymentForm(index) {
 
 // ✅ Success Modal
 function showSuccessModal(productName, index, paymentModal) {
-  // Remove payment modal
   document.body.removeChild(paymentModal);
 
   const successModal = document.createElement("div");
@@ -143,7 +149,7 @@ function showSuccessModal(productName, index, paymentModal) {
   `;
   document.body.appendChild(successModal);
 
-  // ✅ Move item from cart to orders with pending status and correct user
+  // ✅ Move item from cart to orders
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
   const item = cartItems[index];
   const orders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -151,8 +157,6 @@ function showSuccessModal(productName, index, paymentModal) {
 
   orders.push({ ...item, user: currentUser, status: "pending" });
   localStorage.setItem("orders", JSON.stringify(orders));
-
-  console.log("Saved order:", orders[orders.length - 1]); // Debugging line
 
   removeItem(index);
 }
