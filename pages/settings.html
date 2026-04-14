@@ -1,149 +1,281 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Settings</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings</title>
+    <!-- Tailwind CSS -->
+    <link href="/src/output.css" rel="stylesheet" />
+    <!-- FontAwesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen bg-green-50 font-[Segoe_UI]">
+    <main class="p-8">
+      <header class="mb-8 text-center">
+        <h2
+          class="text-3xl font-bold text-green-600 flex items-center justify-center gap-2"
+        >
+          <i class="fas fa-cog"></i> Settings
+        </h2>
+      </header>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="../css/header.css" />
-  <link rel="stylesheet" href="../css/settings.css" />
-  <link rel="stylesheet" href="../css/settings-modal.css" />
-  <link rel="stylesheet" href="../fontawesome-free-7.0.0-web/fontawesome-free-7.0.0-web/css/all.min.css"/>
+      <!-- Settings Grid -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <!-- Email -->
+        <div
+          class="bg-white rounded-xl shadow hover:shadow-lg p-6 text-center cursor-pointer transition hover:scale-105"
+          onclick="openModal('email')"
+        >
+          <i class="fas fa-envelope text-green-600 text-4xl mb-3"></i>
+          <h3 class="text-lg font-semibold text-green-700">Update Email</h3>
+          <p class="text-sm text-gray-600">
+            Change your login or contact email
+          </p>
+        </div>
 
-  <!-- Scripts -->
-  <script src="../js/header.js" defer></script>
-  <script src="../js/settings.js" defer></script>
-  <script src="../js/settings-modal.js" defer></script>
-</head>
-<body>
+        <!-- Location -->
+        <div
+          class="bg-white rounded-xl shadow hover:shadow-lg p-6 text-center cursor-pointer transition hover:scale-105"
+          onclick="openModal('location')"
+        >
+          <i class="fas fa-map-marker-alt text-green-600 text-4xl mb-3"></i>
+          <h3 class="text-lg font-semibold text-green-700">Update Location</h3>
+          <p class="text-sm text-gray-600">Pin your delivery address</p>
+        </div>
 
-  <main class="settings-dashboard">
-    <header>
-      <h2>⚙️ Settings</h2>
-    </header>
+        <!-- Password -->
+        <div
+          class="bg-white rounded-xl shadow hover:shadow-lg p-6 text-center cursor-pointer transition hover:scale-105"
+          onclick="openModal('password')"
+        >
+          <i class="fas fa-lock text-green-600 text-4xl mb-3"></i>
+          <h3 class="text-lg font-semibold text-green-700">Change Password</h3>
+          <p class="text-sm text-gray-600">Secure your account</p>
+        </div>
 
-    <section class="settings-grid">
+        <!-- Preferences -->
+        <div
+          class="bg-white rounded-xl shadow hover:shadow-lg p-6 text-center cursor-pointer transition hover:scale-105"
+          onclick="openModal('preferences')"
+        >
+          <i class="fas fa-sliders-h text-green-600 text-4xl mb-3"></i>
+          <h3 class="text-lg font-semibold text-green-700">Preferences</h3>
+          <p class="text-sm text-gray-600">Language, theme, accessibility</p>
+        </div>
 
-      <!-- Settings Cards -->
-      <article class="settings-card" data-action="updateEmail" id="card-email">
-        <button type="button" onclick="openModal('email')" aria-label="Update Email">
-          <i class="fas fa-envelope icon email"></i>
-          <h3>Update Email</h3>
-          <p>Change your login or contact email</p>
-        </button>
-      </article>
+        <!-- Notifications -->
+        <div
+          class="bg-white rounded-xl shadow hover:shadow-lg p-6 text-center cursor-pointer transition hover:scale-105"
+          onclick="openModal('notifications')"
+        >
+          <i class="fas fa-bell text-green-600 text-4xl mb-3"></i>
+          <h3 class="text-lg font-semibold text-green-700">Notifications</h3>
+          <p class="text-sm text-gray-600">Manage email & SMS alerts</p>
+        </div>
 
-      <article class="settings-card" data-action="updateLocation" id="card-location">
-        <button type="button" onclick="openModal('location')" aria-label="Update Location">
-          <i class="fas fa-map-marker-alt icon location"></i>
-          <h3>Update Location</h3>
-          <p>Pin your delivery address on the map</p>
-        </button>
-      </article>
+        <!-- Account -->
+        <div
+          class="bg-white rounded-xl shadow hover:shadow-lg p-6 text-center cursor-pointer transition hover:scale-105"
+          onclick="openModal('account')"
+        >
+          <i class="fas fa-user-slash text-red-600 text-4xl mb-3"></i>
+          <h3 class="text-lg font-semibold text-red-600">Account Actions</h3>
+          <p class="text-sm text-gray-600">Logout or delete account</p>
+        </div>
+      </section>
+    </main>
 
-      <article class="settings-card" data-action="changePassword" id="card-password">
-        <button type="button" onclick="openModal('password')" aria-label="Change Password">
-          <i class="fas fa-lock icon password"></i>
-          <h3>Change Password</h3>
-          <p>Secure your account with a new password</p>
-        </button>
-      </article>
+    <!-- Modals -->
+    <section>
+      <!-- Email Modal -->
+      <div
+        id="modal-email"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <h2
+            class="text-xl font-bold text-green-600 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-envelope"></i> Update Email
+          </h2>
+          <form class="flex flex-col gap-3">
+            <input
+              type="email"
+              placeholder="New email"
+              required
+              class="border rounded-md p-2 focus:ring focus:ring-green-300"
+            />
+            <div class="flex justify-end gap-3">
+              <button
+                type="button"
+                onclick="closeModal('email')"
+                class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-      <article class="settings-card" data-action="setPreferences" id="card-preferences">
-        <button type="button" onclick="openModal('preferences')" aria-label="Preferences">
-          <i class="fas fa-sliders-h icon preferences"></i>
-          <h3>Preferences</h3>
-          <p>Language, theme, and accessibility</p>
-        </button>
-      </article>
+      <!-- Location Modal -->
+      <div
+        id="modal-location"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <h2
+            class="text-xl font-bold text-green-600 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-map-marker-alt"></i> Update Location
+          </h2>
+          <p class="text-gray-600">This feature is UI-only for now.</p>
+          <div class="flex justify-end mt-4">
+            <button
+              onclick="closeModal('location')"
+              class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
 
-      <article class="settings-card" data-action="manageNotifications" id="card-notifications">
-        <button type="button" onclick="openModal('notifications')" aria-label="Notifications">
-          <i class="fas fa-bell icon notifications"></i>
-          <h3>Notifications</h3>
-          <p>Manage email and SMS alerts</p>
-        </button>
-      </article>
+      <!-- Password Modal -->
+      <div
+        id="modal-password"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <h2
+            class="text-xl font-bold text-green-600 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-lock"></i> Change Password
+          </h2>
+          <form class="flex flex-col gap-3">
+            <input
+              type="password"
+              placeholder="New password"
+              required
+              class="border rounded-md p-2 focus:ring focus:ring-green-300"
+            />
+            <div class="flex justify-end gap-3">
+              <button
+                type="button"
+                onclick="closeModal('password')"
+                class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-      <article class="settings-card danger" data-action="accountActions" id="card-account">
-        <button type="button" onclick="openModal('account')" aria-label="Account Actions">
-          <i class="fas fa-user-slash icon account"></i>
-          <h3>Account Actions</h3>
-          <p>Logout or delete your account</p>
-        </button>
-      </article>
+      <!-- Preferences Modal -->
+      <div
+        id="modal-preferences"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <h2
+            class="text-xl font-bold text-green-600 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-sliders-h"></i> Preferences
+          </h2>
+          <p class="text-gray-600">This feature is UI-only for now.</p>
+          <div class="flex justify-end mt-4">
+            <button
+              onclick="closeModal('preferences')"
+              class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
 
+      <!-- Notifications Modal -->
+      <div
+        id="modal-notifications"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <h2
+            class="text-xl font-bold text-green-600 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-bell"></i> Notifications
+          </h2>
+          <p class="text-gray-600">This feature is UI-only for now.</p>
+          <div class="flex justify-end mt-4">
+            <button
+              onclick="closeModal('notifications')"
+              class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Modal -->
+      <div
+        id="modal-account"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <h2
+            class="text-xl font-bold text-red-600 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-user-slash"></i> Account Actions
+          </h2>
+          <form class="flex flex-col gap-3">
+            <button
+              type="button"
+              class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition inline-flex items-center gap-2"
+              onclick="
+                alert('Logging out...');
+                closeModal('account');
+              "
+            >
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <button
+              type="button"
+              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition inline-flex items-center gap-2"
+              onclick="
+                alert('Account deleted!');
+                closeModal('account');
+              "
+            >
+              <i class="fas fa-trash"></i> Delete Account
+            </button>
+          </form>
+          <div class="flex justify-end mt-4">
+            <button
+              onclick="closeModal('account')"
+              class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
-  </main>
-
-  <!-- Modals Section -->
-  <section class="modals">
-
-    <!-- Email Modal -->
-    <div id="modal-email" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('email')">&times;</span>
-        <h2>Update Email</h2>
-        <form id="form-email">
-          <input type="email" placeholder="New email" required />
-          <button type="submit">Save</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Location Modal (UI only) -->
-    <div id="modal-location" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('location')">&times;</span>
-        <h2>Update Location</h2>
-        <p>This feature is UI-only for now.</p>
-      </div>
-    </div>
-
-    <!-- Password Modal -->
-    <div id="modal-password" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('password')">&times;</span>
-        <h2>Change Password</h2>
-        <form id="form-password">
-          <input type="password" placeholder="New password" required />
-          <button type="submit">Save</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Preferences Modal (UI only) -->
-    <div id="modal-preferences" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('preferences')">&times;</span>
-        <h2>Preferences</h2>
-        <p>This feature is UI-only for now.</p>
-      </div>
-    </div>
-
-    <!-- Notifications Modal (UI only) -->
-    <div id="modal-notifications" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('notifications')">&times;</span>
-        <h2>Notifications</h2>
-        <p>This feature is UI-only for now.</p>
-      </div>
-    </div>
-
-    <!-- Account Modal -->
-    <div id="modal-account" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('account')">&times;</span>
-        <h2>Account Actions</h2>
-        <form id="form-account">
-          <button type="submit" class="logout-btn">Logout</button>
-          <button type="submit" class="delete-btn">Delete Account</button>
-        </form>
-      </div>
-    </div>
-
-  </section>
-
-</body>
+  </body>
 </html>
